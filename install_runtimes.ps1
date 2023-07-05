@@ -22,7 +22,6 @@ $ensure_installed = @(
 
     # CSharp
     "dotnet-sdk",
-    "omnisharp",
 
     # Python
     "python",
@@ -46,4 +45,8 @@ foreach ($package in $ensure_installed) {
         Write-Output "$package already installed: `n$package_details"
     }
 }
+
 $Env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path", "User")
+
+# For CSharp Language Server
+dotnet tool install --global csharp-ls

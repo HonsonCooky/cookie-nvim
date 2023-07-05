@@ -1,7 +1,6 @@
 -- See ./cookienvim/setup_langs.lua for LSP setup
 return {
   'tpope/vim-sleuth',
-  'Hoffs/omnisharp-extended-lsp.nvim',
   -- Language Server Setup
   {
     'neovim/nvim-lspconfig',
@@ -32,22 +31,13 @@ return {
       },
     },
     config = function()
-      local home_path = os.getenv("UserProfile")
-      local nvim_path = home_path .. "/AppData/Local/nvim"
       local servers = {
         clangd = {},
+        csharp_ls = {},
         lua_ls = {
           Lua = {
             workspace = { checkThirdParty = false },
             telemetry = { enable = false },
-          },
-        },
-        omnisharp = {
-          cmd = { "dotnet", home_path .. "\\scoop\\apps\\omnisharp\\current\\OmniSharp.exe" },
-          organize_imports_on_format = true,
-          enable_import_completion = true,
-          handlers = {
-            ["textDocument/definition"] = require('omnisharp_extended').handler,
           },
         },
         powershell_es = {},
@@ -68,7 +58,6 @@ return {
       capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
       -- Ensure the servers above are installed
-      vim.cmd("Mason")
       local mason_lspconfig = require 'mason-lspconfig'
 
       mason_lspconfig.setup {
