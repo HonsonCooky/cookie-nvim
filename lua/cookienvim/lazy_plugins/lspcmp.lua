@@ -1,7 +1,7 @@
 -- See ./cookienvim/setup_langs.lua for LSP setup
 return {
   'tpope/vim-sleuth',
-  'Decodetalkers/csharpls-extended-lsp.nvim',
+  'Hoffs/omnisharp-extended-lsp.nvim',
   -- Language Server Setup
   {
     'neovim/nvim-lspconfig',
@@ -42,7 +42,14 @@ return {
             telemetry = { enable = false },
           },
         },
-        omnisharp = {},
+        omnisharp = {
+          cmd = { "dotnet", home_path .. "\\scoop\\apps\\omnisharp\\current\\OmniSharp.exe" },
+          organize_imports_on_format = true,
+          enable_import_completion = true,
+          handlers = {
+            ["textDocument/definition"] = require('omnisharp_extended').handler,
+          },
+        },
         powershell_es = {},
         pyright = {},
         rust_analyzer = {},
@@ -50,6 +57,7 @@ return {
         terraformls = {},
         tsserver = {},
         volar = {},
+        yamlls = {},
       }
 
       -- Setup neovim lua configuration
