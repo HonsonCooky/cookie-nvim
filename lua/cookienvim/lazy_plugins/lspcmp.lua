@@ -1,3 +1,4 @@
+-- See ./cookienvim/setup_langs.lua for LSP setup
 return {
   'tpope/vim-sleuth',
   'Decodetalkers/csharpls-extended-lsp.nvim',
@@ -30,17 +31,18 @@ return {
         },
       },
     },
-    -- Auto completion setup
     config = function()
+      local home_path = os.getenv("UserProfile")
+      local nvim_path = home_path .. "/AppData/Local/nvim"
       local servers = {
         clangd = {},
-        csharp_ls = {},
         lua_ls = {
           Lua = {
             workspace = { checkThirdParty = false },
             telemetry = { enable = false },
           },
         },
+        omnisharp = {},
         powershell_es = {},
         pyright = {},
         rust_analyzer = {},
@@ -58,6 +60,7 @@ return {
       capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
       -- Ensure the servers above are installed
+      vim.cmd("Mason")
       local mason_lspconfig = require 'mason-lspconfig'
 
       mason_lspconfig.setup {
@@ -121,17 +124,6 @@ return {
           { name = 'luasnip' },
         },
       }
-
-      -- CSharp helper
-      local config = {
-        handlers = {
-          ["textDocument/definition"] = require('csharpls_extended').handler,
-        },
-        cmd = { csharpls },
-        -- rest of your settings
-      }
-
-      require 'lspconfig'.csharp_ls.setup(config)
     end
   },
 }

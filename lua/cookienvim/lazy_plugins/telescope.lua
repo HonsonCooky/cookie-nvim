@@ -5,14 +5,13 @@ return {
     { "nvim-lua/plenary.nvim" },
     {
       'nvim-telescope/telescope-fzf-native.nvim',
-      build = 'make',
-      cond = function() return vim.fn.executable 'make' == 1 end,
+      build = 'make'
     },
   },
   config = function()
     local telescope = require("telescope")
     telescope.setup {}
     telescope.load_extension("harpoon")
-    telescope.load_extension("fzf")
+    pcall(require('telescope').load_extension, 'fzf')
   end
 }
