@@ -5,6 +5,7 @@ return {
   {
     'neovim/nvim-lspconfig',
     dependencies = {
+      'Hoffs/omnisharp-extended-lsp.nvim',
       -- Automatically install LSPs to stdpath for neovim
       { 'williamboman/mason.nvim', config = true },
       'williamboman/mason-lspconfig.nvim',
@@ -33,13 +34,13 @@ return {
     config = function()
       local servers = {
         clangd = {},
-        csharp_ls = {},
         lua_ls = {
           Lua = {
             workspace = { checkThirdParty = false },
             telemetry = { enable = false },
           },
         },
+        omnisharp = {},
         powershell_es = {},
         pyright = {},
         rust_analyzer = {},
@@ -66,10 +67,14 @@ return {
 
       mason_lspconfig.setup_handlers {
         function(server_name)
-          require('lspconfig')[server_name].setup {
-            capabilities = capabilities,
-            settings = servers[server_name],
-          }
+          if (server_name == "omnisharp") then
+            require("cookienvim.omnisharp_setup").setup_omnisharp()
+          else
+            require('lspconfig')[server_name].setup {
+              capabilities = capabilities,
+              settings = servers[server_name],
+            }
+          end
         end,
       }
 
