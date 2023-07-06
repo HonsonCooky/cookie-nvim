@@ -13,6 +13,7 @@ $ensure_installed = @(
     # ETC
     "fzf",
     "lazygit",
+    "JetBrainsMono-NF-Mono",
     "make", 
     "ripgrep",
     "tree-sitter",
@@ -35,7 +36,8 @@ $ensure_installed = @(
     "pnpm"
 );
 
-scoop bucket add extras
+scoop bucket add extras 
+scoop bucket add nerd-fonts
 foreach ($package in $ensure_installed) {
     if ($installed -notlike "*$package*") {
         Write-Output "$package installation not found...";

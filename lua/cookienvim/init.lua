@@ -15,6 +15,8 @@ window.number = true -- Line numbers on by default
 -- -----------------------------------------------------------------------------------------------------------------
 local opts = vim.opt
 
+require("cookienvim.fonts").setup()
+
 -- Line numbers
 opts.nu = true
 opts.wrap = false
