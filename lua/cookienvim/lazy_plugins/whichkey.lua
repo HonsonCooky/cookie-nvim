@@ -5,6 +5,8 @@ return {
   config = function()
     local whichkey = require("which-key")
     local telescope = require("telescope.builtin")
+    local harpoon_mark = require("harpoon.mark")
+    local harpoon_ui = require("harpoon.ui")
     whichkey.setup(configuration)
     -- --------------------------------------------------------
     -- NORMAL MODE
@@ -18,7 +20,9 @@ return {
     )
     -- Silent
     whichkey.register({
+        -- Terminal
         ["<C-`>"] = { function() vim.cmd("ToggleTerm direction=horizontal") end, "Open Terminal" },
+        -- Navigation
         ["<C-a>"] = { "ggVG", "Highlight [A]ll" },
         ["<C-h>"] = { "<C-w>h", "Jump to windows LEFT" },
         ["<C-j>"] = { "<C-w>j", "Jump to windows DOWN" },
@@ -26,6 +30,11 @@ return {
         ["<C-l>"] = { "<C-w>l", "Jump to windows RIGHT" },
         ["<TAB>"] = { function() vim.cmd("tabnext") end, "Next Tab" },
         ["<S-TAB>"] = { function() vim.cmd("tabprev") end, "Prev Tab" },
+        -- Harpoon Navigation
+        ["<A-f>"] = { function() harpoon_ui.nav_file(vim.v.count) end, "Harpoon Navigate To [F]ile" },
+        ["<A-d>"] = { function() harpoon_ui.nav_next() end, "Harpoon Navigate Next" },
+        ["<A-s>"] = { function() harpoon_ui.nav_prev() end, "Harpoon Navigate Prev" },
+        -- Text shifting
         J = { "mzJ`z", "Pull line up, stay position" },
         g = {
           name = "[G]oTo",
@@ -70,6 +79,11 @@ return {
         g = {
           name = "[G]it hunk",
           -- see cookienvim.git.lua
+        },
+        h = {
+          name = "[H]arpoon",
+          a = { harpoon_mark.add_file, "[A]dd" },
+          f = { harpoon_ui.toggle_quick_menu, "[F]iles" },
         },
         l = {
           name = "[L]SP",
