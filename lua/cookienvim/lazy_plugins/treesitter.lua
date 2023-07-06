@@ -9,6 +9,7 @@ local language_list = {
   'json',
   'lua',
   'markdown',
+  'prisma',
   'python',
   'rust',
   'sql',

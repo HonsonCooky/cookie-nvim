@@ -35,6 +35,11 @@ return {
           r = { vim.lsp.buf.rename, '[R]ename' },
           s = { require('telescope.builtin').lsp_document_symbols, '[S]ymbols' }
         },
+        w = { function()
+          vim.lsp.buf.format { async = false }
+          vim.cmd("wa")
+        end, "[W]rite"
+        }
       },
       { mode = "n", prefix = "<leader>" }
     )
