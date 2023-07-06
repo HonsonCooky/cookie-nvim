@@ -27,7 +27,7 @@ return {
     )
     whichkey.register(
       {
-        e = { function() vim.cmd("NvimTreeToggle") end, "File [E]xplorer" },
+        e = { function() vim.cmd("NeoTreeFloatToggle") end, "File [E]xplorer" },
         l = {
           name = "[L]SP",
           a = { vim.lsp.buf.code_action, 'Code [A]ction' },
