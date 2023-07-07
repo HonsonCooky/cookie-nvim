@@ -27,7 +27,6 @@ return {
     -- Non-Silent
     whichkey.register({
         [";"] = { ":", "Vim Command" },
-        [""] = {},
       },
       { mode = "n", silent = false })
     -- Silent
