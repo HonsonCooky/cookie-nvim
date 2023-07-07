@@ -25,7 +25,11 @@ return {
     local harpoon_ui = require("harpoon.ui")
     local fonts = require("cookienvim.fonts")
 
-    local lazygit = require('toggleterm.Terminal').Terminal:new({ cmd = "lazygit", hidden = true })
+    local lazygit = require('toggleterm.Terminal').Terminal:new({
+      cmd = "lazygit",
+      hidden = true,
+      direction = "float"
+    })
 
     whichkey.setup(configuration)
     -- --------------------------------------------------------
@@ -106,9 +110,12 @@ return {
           w = { telescope.grep_string, "[W]ord" },
         },
         g = {
-          name = "[G]it hunk",
+          name = "[G]it",
           -- see cookienvim.git.lua
-          g = { function() lazygit:toggle() end, "Lazy[G]it" }
+          g = { function() lazygit:toggle() end, "Lazy[G]it" },
+          p = { require('gitsigns').prev_hunk, "[P]revious Hunk" },
+          n = { require('gitsigns').next_hunk, "[N]ext Hunk" },
+          h = { require('gitsigns').preview_hunk, "Preview [H]unk" },
         },
         h = {
           name = "[H]arpoon",
