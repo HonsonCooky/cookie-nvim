@@ -13,12 +13,19 @@ local configuration = {}
 
 return {
   "folke/which-key.nvim",
+  dependencies = {
+    "ThePrimeagen/harpoon",
+    "nvim-telescope/telescope.nvim",
+    'akinsho/toggleterm.nvim',
+  },
   config = function()
     local whichkey = require("which-key")
     local telescope = require("telescope.builtin")
     local harpoon_mark = require("harpoon.mark")
     local harpoon_ui = require("harpoon.ui")
     local fonts = require("cookienvim.fonts")
+
+    local lazygit = require('toggleterm.Terminal').Terminal:new({ cmd = "lazygit", hidden = true })
 
     whichkey.setup(configuration)
     -- --------------------------------------------------------
@@ -61,7 +68,7 @@ return {
           name = "[G]oTo",
           d = { vim.lsp.buf.definition, '[D]efinition' },
           D = { vim.lsp.buf.declaration, '[D]eclaration' },
-          r = { require('telescope.builtin').lsp_references, '[R]eferences' },
+          r = { telescope.lsp_references, '[R]eferences' },
           i = { vim.lsp.buf.implementation, '[I]mplementation' },
         },
         H = { vim.lsp.buf.signature_help, 'Signature [H]elp' },
@@ -72,7 +79,7 @@ return {
           a = { vim.lsp.buf.add_workspace_folder, '[A]dd Folder' },
           l = { function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, '[L]ist Folders' },
           r = { vim.lsp.buf.remove_workspace_folder, '[R]emove Folder' },
-          s = { require('telescope.builtin').lsp_dynamic_workspace_symbols, '[S]ymbols' },
+          s = { telescope.lsp_dynamic_workspace_symbols, '[S]ymbols' },
         }
       },
       { mode = "n" }
@@ -101,6 +108,7 @@ return {
         g = {
           name = "[G]it hunk",
           -- see cookienvim.git.lua
+          g = { function() lazygit:toggle() end, "Lazy[G]it" }
         },
         h = {
           name = "[H]arpoon",
@@ -112,15 +120,9 @@ return {
           a = { vim.lsp.buf.code_action, 'Code [A]ction' },
           d = { vim.lsp.buf.type_definition, 'Type [D]efinition' },
           r = { vim.lsp.buf.rename, '[R]ename' },
-          s = { require('telescope.builtin').lsp_document_symbols, '[S]ymbols' }
+          s = { telescope.lsp_document_symbols, '[S]ymbols' }
         },
-        w = {
-          function()
-            vim.lsp.buf.format { async = false }
-            vim.cmd("wa")
-          end,
-          "[W]rite"
-        }
+        w = { function() vim.cmd("wa") end, "[W]rite All" }
       },
       { mode = "n", prefix = "<leader>" }
     )
