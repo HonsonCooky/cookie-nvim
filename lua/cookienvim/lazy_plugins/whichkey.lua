@@ -37,7 +37,7 @@ return {
     -- --------------------------------------------------------
     -- Non-Silent
     whichkey.register({
-        [";"] = { ":", "Vim Command" },
+        [";"] = { ":", "Vim Command" }, -- Just makes life a little easier
       },
       { mode = "n", silent = false })
     -- Silent
@@ -97,7 +97,7 @@ return {
           n = { vim.diagnostic.goto_next, "[N]ext" },
           p = { vim.diagnostic.goto_prev, "[P]revious" },
         },
-        e = { function() vim.cmd("NeoTreeFloat") end, "File [E]xplorer" },
+        e = { function() vim.cmd("Neotree position=right") end, "File [E]xplorer" },
         f = {
           name = "[F]ind",
           ["/"] = { telescope.oldfiles, "History" },

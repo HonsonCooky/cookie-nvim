@@ -63,3 +63,6 @@ require("lazy").setup("cookienvim.lazy_plugins")
 -- -----------------------------------------------------------------------------------------------------------------
 local source_repo_loc = os.getenv("UserProfile") .. "/source"
 vim.cmd("cd " .. source_repo_loc)
+
+vim.cmd("Neotree source=filesystem reveal=true position=right") -- Toggle on tree first, to take up screen-height
+vim.cmd("ToggleTerm direction=horizontal")                      -- Terminal ready to go

@@ -23,5 +23,28 @@ return {
     end
 
     term.setup({ shell = vim.o.shell })
+
+    -- Follow directory on change
+    vim.api.nvim_create_autocmd("DirChanged", {
+      callback = function()
+        -- list current buffers
+        local buffers = vim.api.nvim_list_bufs()
+
+        -- check if toggleterm buffer exists. If not then create one by vim.cmd [[ exe 1 . "ToggleTerm" ]]
+        local toggleterm_exists = false
+        for _, buf in ipairs(buffers) do
+          local buf_name = vim.api.nvim_buf_get_name(buf)
+          if buf_name:find("toggleterm#") then
+            toggleterm_exists = true
+            break
+          end
+        end
+
+        if (toggleterm_exists) then
+          local cwd = vim.loop.cwd()
+          vim.cmd("TermExec cmd=\"cd " .. cwd .. "; cls;\"")
+        end
+      end
+    })
   end
 }
