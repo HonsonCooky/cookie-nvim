@@ -12,6 +12,7 @@ $ensure_installed = @(
 
     # ETC
     "fzf",
+    "gh",
     "lazygit",
     "JetBrainsMono-NF-Mono",
     "make", 
