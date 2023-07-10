@@ -24,7 +24,6 @@ $ensure_installed = @(
 
     # CSharp
     "dotnet-sdk",
-    "omnisharp",
 
     # Python
     "python",
