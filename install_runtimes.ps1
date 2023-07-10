@@ -51,3 +51,5 @@ foreach ($package in $ensure_installed) {
 }
 
 $Env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path", "User")
+
+dotnet tool install --global csharp-ls
