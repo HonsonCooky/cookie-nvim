@@ -24,6 +24,7 @@ return {
     local harpoon_mark = require("harpoon.mark")
     local harpoon_ui = require("harpoon.ui")
     local fonts = require("cookienvim.fonts")
+    local utils = require("cookienvim.utilmods")
 
     local lazygit = require('toggleterm.Terminal').Terminal:new({
       cmd = "lazygit",
@@ -130,7 +131,9 @@ return {
           r = { vim.lsp.buf.rename, '[R]ename' },
           s = { telescope.lsp_document_symbols, '[S]ymbols' }
         },
-        w = { function() vim.cmd("wa") end, "[W]rite All" }
+        q = { utils.safe_quit, '[Q]uit' },
+        r = { utils.reload_buffer, '[R]eload Buffer' },
+        w = { utils.format_and_save, "[W]rite All" }
       },
       { mode = "n", prefix = "<leader>" }
     )

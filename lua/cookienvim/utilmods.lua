@@ -2,10 +2,21 @@
 -- BUT, they all took me way too long to figure out, so I saved them here for future me
 local M = {}
 
+function M.reload_buffer()
+  vim.cmd("e!")
+end
+
+function M.format()
+  vim.lsp.buf.format({
+    filter = function(client) return client.name ~= "tsserver" end,
+    async = false
+  })
+end
+
 -- Format the document, then save the format
 function M.format_and_save()
   vim.cmd "stopinsert"
-  pcall(vim.lsp.buf.format)
+  M.format()
   vim.cmd "wa"
 end
 

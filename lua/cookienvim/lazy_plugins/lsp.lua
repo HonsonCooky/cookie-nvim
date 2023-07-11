@@ -73,7 +73,7 @@ return {
 
       -- Format on save
       vim.api.nvim_create_autocmd("BufWritePre", {
-        callback = function() pcall(vim.lsp.buf.format({ async = false }), 'cnext') end,
+        callback = require("cookienvim.utilmods").format
       })
     end
   },
