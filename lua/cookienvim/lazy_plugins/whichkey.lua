@@ -126,6 +126,7 @@ return {
           name = "[L]SP",
           a = { vim.lsp.buf.code_action, 'Code [A]ction' },
           d = { vim.lsp.buf.type_definition, 'Type [D]efinition' },
+          f = { vim.lsp.buf.format, '[F]ormat' },
           r = { vim.lsp.buf.rename, '[R]ename' },
           s = { telescope.lsp_document_symbols, '[S]ymbols' }
         },
