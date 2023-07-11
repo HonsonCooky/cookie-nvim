@@ -22,7 +22,11 @@ return {
       end
     end
 
-    term.setup({ shell = vim.o.shell })
+    term.setup({
+      shade_terminals = false,
+      shell = vim.o.shell,
+      direction = 'horizontal',
+    })
 
     -- Follow directory on change
     vim.api.nvim_create_autocmd("DirChanged", {
