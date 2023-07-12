@@ -133,6 +133,11 @@ return {
         },
         q = { utils.safe_quit, '[Q]uit' },
         r = { utils.reload_buffer, '[R]eload Buffer' },
+        t = {
+          name = "[T]heme",
+          a = { require("cookienvim.thememod").theme_handle, "[A]lign" },
+          t = { function() vim.cmd("Telescope colorscheme") end, "[T]elescope" },
+        },
         w = { utils.format_and_save, "[W]rite All" }
       },
       { mode = "n", prefix = "<leader>" }

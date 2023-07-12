@@ -8,9 +8,9 @@ local function windows_theme_is_dark()
   local path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize"
   local key = "SystemUsesLightTheme"
   local sys_comm = "reg query " .. path .. ' /v "' .. key .. '"'
-  local light_theme_sys_reg = vim.fn.system(sys_comm) -- returns hex value for register
+  local light_theme_sys_reg = vim.fn.system(sys_comm)                     -- returns hex value for register
   local light_theme_sys_str = string.gsub(light_theme_sys_reg, "%s+", "") -- remove whitespace
-  local register_value = string.sub(light_theme_sys_str, -1) -- extract last value
+  local register_value = string.sub(light_theme_sys_str, -1)              -- extract last value
   return register_value == "0"
 end
 
@@ -35,6 +35,7 @@ end
 function M.theme_handle()
   if (is_windows_os) then
     theme_alignment(windows_theme_is_dark())
+    pcall(vim.cmd, "TermExec cmd=\"~\\AppData\\Local\\nvim\\set-pwsh-font-color.ps1 " .. vim.o.background .. "; cls;\"")
   else
     theme_alignment(linux_theme_is_dark())
   end
