@@ -63,10 +63,5 @@ require("lazy").setup("cookienvim.lazy_plugins")
 -- -----------------------------------------------------------------------------------------------------------------
 local source_repo_loc = os.getenv("UserProfile") .. "/source"
 vim.cmd("cd " .. source_repo_loc)
-
-vim.api.nvim_create_autocmd("VimEnter", {
-  callback = function()
-    vim.cmd("Neotree source=filesystem reveal=true position=right")
-    vim.cmd("ToggleTerm")
-  end
-})
+vim.cmd("Neotree source=filesystem reveal=true position=right")
+require("cookienvim.thememod").theme_handle()

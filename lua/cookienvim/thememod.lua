@@ -32,13 +32,14 @@ local function theme_alignment(is_os_dark)
 end
 
 -- Run at start
-function M.theme_handle()
+function M.theme_handle(isDark)
   if (is_windows_os) then
-    theme_alignment(windows_theme_is_dark())
+    theme_alignment(isDark or windows_theme_is_dark())
     pcall(vim.cmd, "TermExec cmd=\"~\\AppData\\Local\\nvim\\set-pwsh-font-color.ps1 " .. vim.o.background .. "; cls;\"")
   else
-    theme_alignment(linux_theme_is_dark())
+    theme_alignment(isDark or linux_theme_is_dark())
   end
+  pcall(vim.cmd, "mode")
 end
 
 return M
