@@ -22,6 +22,7 @@ return {
       local servers = {
         clangd = {},
         csharp_ls = {},
+        fsharp_language_server = {},
         lua_ls = {
           Lua = {
             workspace = { checkThirdParty = false },
