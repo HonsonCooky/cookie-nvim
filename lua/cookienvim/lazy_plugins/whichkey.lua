@@ -129,7 +129,8 @@ return {
           d = { vim.lsp.buf.type_definition, 'Type [D]efinition' },
           f = { vim.lsp.buf.format, '[F]ormat' },
           r = { vim.lsp.buf.rename, '[R]ename' },
-          s = { telescope.lsp_document_symbols, '[S]ymbols' }
+          s = { telescope.lsp_document_symbols, '[S]ymbols' },
+          w = { utils.toggle_wrap, '[W]rap' }
         },
         q = { utils.safe_quit, '[Q]uit' },
         r = { utils.reload_buffer, '[R]eload Buffer' },
