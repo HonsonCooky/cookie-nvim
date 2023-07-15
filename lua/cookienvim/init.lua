@@ -34,11 +34,6 @@ opts.timeout = true
 opts.timeoutlen = 100
 opts.updatetime = 250
 opts.undofile = true
-
-local tabs = 2
-opts.tabstop = tabs
-opts.softtabstop = tabs
-opts.shiftwidth = tabs
 opts.expandtab = true
 opts.smartindent = true
 
