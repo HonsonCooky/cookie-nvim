@@ -1,5 +1,6 @@
 # Install scoop if it doesn't already exist
-if (!(Get-Command -Name "scoop" -ErrorAction SilentlyContinue)) {
+if (!(Get-Command -Name "scoop" -ErrorAction SilentlyContinue))
+{
     Set-ExecutionPolicy RemoteSigned -Scope CurrentUser;
     Invoke-RestMethod get.scoop.sh | Invoke-Expression;
 }
@@ -38,12 +39,14 @@ $ensure_installed = @(
 
 scoop bucket add extras 
 scoop bucket add nerd-fonts
-foreach ($package in $ensure_installed) {
-    if ($installed -notlike "*$package*") {
+foreach ($package in $ensure_installed)
+{
+    if ($installed -notlike "*$package*")
+    {
         Write-Output "$package installation not found...";
         scoop install $package;
-    }
-    else {
+    } else
+    {
         $package_details = scoop info $package | Out-String
         Write-Output "$package already installed: `n$package_details"
     }
@@ -52,3 +55,6 @@ foreach ($package in $ensure_installed) {
 $Env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path", "User")
 
 dotnet tool install --global csharp-ls
+rustup toolchain install stable-x86_64-pc-windows-gnu
+rustup default stable-x86_64-pc-windows-gnu
+
