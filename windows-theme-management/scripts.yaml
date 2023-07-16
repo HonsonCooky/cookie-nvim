@@ -1,0 +1,8 @@
+Enabled: true
+Component:
+  Scripts:
+  - Name: Neovim Theme Update
+    Command: powershell 
+    ArgsLight: [pwsh -ExecutionPolicy Bypass -File $Env:LOCALAPPDATA\\nvim\\windows-theme-management\\update-nvim-themes.ps1 light]
+    ArgsDark: [pwsh -ExecutionPolicy Bypass -File $Env:LOCALAPPDATA\\nvim\\windows-theme-management\\update-nvim-themes.ps1 dark]
+    AllowedSources: [Any]
