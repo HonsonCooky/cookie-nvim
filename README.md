@@ -81,7 +81,7 @@ All packages (and configurations) can be found in the `./lua/cookienvim/lazy_plu
 [autocomplete]: https://github.com/hrsh7th/nvim-cmp
 [comment]: https://github.com/numToStr/Comment.nvim
 [fugitive]: https://github.com/tpope/vim-fugitive
-[gitsigns]: https://github.comlewis6991/gitsigns.nvim
+[gitsigns]: https://github.com/lewis6991/gitsigns.nvim
 [harpoon]: https://github.com/ThePrimeagen/harpoon
 [highlights]: https://github.com/brenoprata10/nvim-highlight-colors
 [indent]: https://github.com/lukas-reineke/indent-blankline.nvim
