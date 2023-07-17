@@ -56,10 +56,42 @@ Currently, CookieNvim is setup for Windows-Only use. Future updates to my develo
 
 All packages (and configurations) can be found in the `./lua/cookienvim/lazy_plugins` directory.
 
-| Package Name                | Description                           |
-| --------------------------- | ------------------------------------- |
-| [nvim-autopairs][autopairs] | Insert closing characters (), {}, etc |
-
-|
+| Package Name                        | Description                                       |
+| ----------------------------------- | ------------------------------------------------- |
+| [nvim-autopairs][autopairs]         | Insert closing characters (), {}, etc             |
+| [nvim-cmp][autocomplete]            | Completion engine, intellisense                   |
+| [comment.nvim][comment]             | Comment out highlighted lines                     |
+| [vim-fugitive][fugitive]            | Git CLI from vim commandline                      |
+| [gitsigns.nvim][gitsigns]           | Git sidebar decorators                            |
+| [harpoon][harpoon]                  | Jump between marked buffers                       |
+| [nvim-highlight-colors][highlights] | #ffffff inline color highlighting                 |
+| [indent-blankline.nvim][indent]     | VSCode-Style indentation highlighting             |
+| [lazygit.nvim][lazygit]             | Git UI                                            |
+| [nvim-lspconfig][lspconfig]         | Language Server Protocol for syntactic assistance |
+| [lualine.nvim][lualine]             | Prettier status line                              |
+| [neo-tree.nvim][neotree]            | File Explorer                                     |
+| [null-ls.nvim][nullls]              | Code Formatting                                   |
+| [vim-rhubarb][rhubarb]              | Fugitive extension for URLS                       |
+| [telescope.nvim][telescope]         | Fuzzy Finding UI                                  |
+| [toggleterm.nvim][toggleterm]       | Integrated terminal manager                       |
+| [nvim-treesitter][treesitter]       | Syntax highlighting                               |
+| [which-key.nvim][whichkey]          | UI Keybinding assistance                          |
 
 [autopairs]: https://github.com/windwp/nvim-autopairs
+[autocomplete]: https://github.com/hrsh7th/nvim-cmp
+[comment]: https://github.comnumToStr/Comment.nvim
+[fugitive]: https://github.com/tpope/vim-fugitive
+[gitsigns]: https://github.comlewis6991/gitsigns.nvim
+[harpoon]: https://github.com/ThePrimeagen/harpoon
+[highlights]: https://github.com/brenoprata10/nvim-highlight-colors
+[indent]: https://github.com/lukas-reineke/indent-blankline.nvim
+[lazygit]: https://github.com/kdheepak/lazygit.nvim
+[lspconfig]: https://github.com/neovim/nvim-lspconfig
+[lualine]: https://github.com/nvim-lualine/lualine.nvim
+[neotree]: https://github.com/nvim-neo-tree/neo-tree.nvim
+[nullls]: https://github.com/jose-elias-alvarez/null-ls.nvim
+[rhubarb]: https://github.comtpope/vim-rhubarb
+[telescope]: https://github.com/nvim-telescope/telescope.nvim
+[toggleterm]: https://github.com/akinsho/toggleterm.nvim
+[treesitter]: https://github.com/nvim-treesitter/nvim-treesitter
+[whichkey]: https://github.com/folke/which-key.nvim
