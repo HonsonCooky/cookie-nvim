@@ -62,4 +62,4 @@ All packages (and configurations) can be found in the `./lua/cookienvim/lazy_plu
 
 |
 
-[autopairs](https://github.com/windwp/nvim-autopairs)
+[autopairs]: https://github.com/windwp/nvim-autopairs
