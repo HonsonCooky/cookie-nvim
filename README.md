@@ -90,7 +90,7 @@ All packages (and configurations) can be found in the `./lua/cookienvim/lazy_plu
 [lualine]: https://github.com/nvim-lualine/lualine.nvim
 [neotree]: https://github.com/nvim-neo-tree/neo-tree.nvim
 [nullls]: https://github.com/jose-elias-alvarez/null-ls.nvim
-[rhubarb]: https://github.comtpope/vim-rhubarb
+[rhubarb]: https://github.com/tpope/vim-rhubarb
 [telescope]: https://github.com/nvim-telescope/telescope.nvim
 [toggleterm]: https://github.com/akinsho/toggleterm.nvim
 [treesitter]: https://github.com/nvim-treesitter/nvim-treesitter
