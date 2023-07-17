@@ -58,23 +58,23 @@ All packages (and configurations) can be found in the `./lua/cookienvim/lazy_plu
 
 | Package Name                        | Description                                       |
 | ----------------------------------- | ------------------------------------------------- |
-| [nvim-autopairs][autopairs]         | Insert closing characters (), {}, etc             |
-| [nvim-cmp][autocomplete]            | Completion engine, intellisense                   |
 | [comment.nvim][comment]             | Comment out highlighted lines                     |
-| [vim-fugitive][fugitive]            | Git CLI from vim commandline                      |
 | [gitsigns.nvim][gitsigns]           | Git sidebar decorators                            |
 | [harpoon][harpoon]                  | Jump between marked buffers                       |
-| [nvim-highlight-colors][highlights] | #ffffff inline color highlighting                 |
-| [indent-blankline.nvim][indent]     | VSCode-Style indentation highlighting             |
 | [lazygit.nvim][lazygit]             | Git UI                                            |
-| [nvim-lspconfig][lspconfig]         | Language Server Protocol for syntactic assistance |
 | [lualine.nvim][lualine]             | Prettier status line                              |
+| [indent-blankline.nvim][indent]     | VSCode-Style indentation highlighting             |
 | [neo-tree.nvim][neotree]            | File Explorer                                     |
 | [null-ls.nvim][nullls]              | Code Formatting                                   |
-| [vim-rhubarb][rhubarb]              | Fugitive extension for URLS                       |
+| [nvim-autopairs][autopairs]         | Insert closing characters (), {}, etc             |
+| [nvim-cmp][autocomplete]            | Completion engine, intellisense                   |
+| [nvim-highlight-colors][highlights] | #ffffff inline color highlighting                 |
+| [nvim-lspconfig][lspconfig]         | Language Server Protocol for syntactic assistance |
+| [nvim-treesitter][treesitter]       | Syntax highlighting                               |
 | [telescope.nvim][telescope]         | Fuzzy Finding UI                                  |
 | [toggleterm.nvim][toggleterm]       | Integrated terminal manager                       |
-| [nvim-treesitter][treesitter]       | Syntax highlighting                               |
+| [vim-fugitive][fugitive]            | Git CLI from vim commandline                      |
+| [vim-rhubarb][rhubarb]              | Fugitive extension for URLS                       |
 | [which-key.nvim][whichkey]          | UI Keybinding assistance                          |
 
 [autopairs]: https://github.com/windwp/nvim-autopairs
