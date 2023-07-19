@@ -75,3 +75,9 @@ On Windows, a common application for theme switching is
 [Auto Dark Mode](https://apps.microsoft.com/store/detail/auto-dark-mode/XP8JK4HZBVF435). This application only switches
 the OS theme, however, programs like VSCode, Edge and Chrome will respond to this theme change. Unfortunately, Neovim
 doesn't have this same feature, which makes
+
+
+
+https://github.com/HonsonCooky/cookie-nvim/assets/39540045/7062c852-dc7e-4d5d-800c-53d0bc1559ec
+
+
