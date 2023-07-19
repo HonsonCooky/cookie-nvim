@@ -1,47 +1,73 @@
 local M = {}
 
-local is_windows_os = string.find(string.lower(vim.loop.os_uname().sysname), "windows") ~= nil
+BackgroundOptions = { LIGHT = "light", DARK = "dark" }
 
--- Align theme with Windows 10/11 system theme
+local powershell_light = "@{" ..
+    "Command                  = $PSStyle.Foreground.FromRGB(0x7287fd);" ..
+    "Comment                  = $PSStyle.Foreground.FromRGB(0x40a02b);" ..
+    "ContinuationPrompt       = $PSStyle.Foreground.FromRGB(0x7287fd);" ..
+    "Default                  = $PSStyle.Foreground.FromRGB(0x7287fd);" ..
+    "Emphasis                 = $PSStyle.Foreground.FromRGB(0x7287fd);" ..
+    "Error                    = $PSStyle.Foreground.FromRGB(0xd20f39);" ..
+    "InlinePrediction         = $PSStyle.Foreground.FromRGB(0x4c4f69);" ..
+    "Keyword                  = $PSStyle.Foreground.FromRGB(0x40a02b);" ..
+    "ListPrediction           = $PSStyle.Foreground.FromRGB(0x40a02b);" ..
+    "Member                   = $PSStyle.Foreground.FromRGB(0x8839ef);" ..
+    "Number                   = $PSStyle.Foreground.FromRGB(0xfe640b);" ..
+    "Operator                 = $PSStyle.Foreground.FromRGB(0x4c4f69);" ..
+    "Parameter                = $PSStyle.Foreground.FromRGB(0x4c4f69);" ..
+    "String                   = $PSStyle.Foreground.FromRGB(0xfe640b);" ..
+    "Type                     = $PSStyle.Foreground.FromRGB(0xfe640b);" ..
+    "Variable                 = $PSStyle.Foreground.FromRGB(0x8839ef);" ..
+    "ListPredictionSelected   = $PSStyle.Background.FromRGB(0x4c4f69);" ..
+    "Selection                = $PSStyle.Background.FromRGB(0x04a5e5);" ..
+    "}"
+
+local powershell_dark = "@{" ..
+    "Command                  = $PSStyle.Foreground.FromRGB(0x89b4fa);" ..
+    "Comment                  = $PSStyle.Foreground.FromRGB(0x40a02b);" ..
+    "ContinuationPrompt       = $PSStyle.Foreground.FromRGB(0x89b4fa);" ..
+    "Default                  = $PSStyle.Foreground.FromRGB(0x89b4fa);" ..
+    "Emphasis                 = $PSStyle.Foreground.FromRGB(0x89b4fa);" ..
+    "Error                    = $PSStyle.Foreground.FromRGB(0xeba0ac);" ..
+    "InlinePrediction         = $PSStyle.Foreground.FromRGB(0xbac2de);" ..
+    "Keyword                  = $PSStyle.Foreground.FromRGB(0xa6e3a1);" ..
+    "ListPrediction           = $PSStyle.Foreground.FromRGB(0xa6e3a1);" ..
+    "Member                   = $PSStyle.Foreground.FromRGB(0xb4befe);" ..
+    "Number                   = $PSStyle.Foreground.FromRGB(0xfab387);" ..
+    "Operator                 = $PSStyle.Foreground.FromRGB(0xbac2de);" ..
+    "Parameter                = $PSStyle.Foreground.FromRGB(0xbac2de);" ..
+    "String                   = $PSStyle.Foreground.FromRGB(0xfab387);" ..
+    "Type                     = $PSStyle.Foreground.FromRGB(0xfab387);" ..
+    "Variable                 = $PSStyle.Foreground.FromRGB(0xb4befe);" ..
+    "ListPredictionSelected   = $PSStyle.Background.FromRGB(0xbac2de);" ..
+    "Selection                = $PSStyle.Background.FromRGB(0x89b4fa);" ..
+    "}"
+
 local function windows_theme_is_dark()
-  -- Get Windows theme register for using light theme. 0 == dark, 1 == light
-  local path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize"
-  local key = "SystemUsesLightTheme"
-  local sys_comm = "reg query " .. path .. ' /v "' .. key .. '"'
-  local light_theme_sys_reg = vim.fn.system(sys_comm)                     -- returns hex value for register
-  local light_theme_sys_str = string.gsub(light_theme_sys_reg, "%s+", "") -- remove whitespace
-  local register_value = string.sub(light_theme_sys_str, -1)              -- extract last value
-  return register_value == "0"
+  local cmdlet = "Get-ItemPropertyValue"
+  local path = " -Path HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize"
+  local name = " -Name AppsUseLightTheme"
+  local cmd = cmdlet .. path .. name
+  local reg_value = vim.fn.system(cmd)
+  return (string.find(reg_value, "1") == nil) and BackgroundOptions.DARK or BackgroundOptions.LIGHT
 end
 
--- An approximation of what a ubuntu-based switch may look like (haven't used outside codespaces)
-local function linux_theme_is_dark()
-  local light_theme_sys_reg = vim.fn.system("gsettings get org.gnome.desktop.interface gtk-theme")
-  local light_theme_sys_str = string.gsub(light_theme_sys_reg, "%s+", "") -- remove whitespace
-  local sys_is_light = string.find(light_theme_sys_str, "dark") == nil
-  return not sys_is_light
-end
+--~ Switch between light and dark theme. This function does more than switch themes / backgrounds, and should be used
+--for all theme changes
+--@param force_theme a BackgroundOptions value
+function M.theme_handle(force_theme)
+  local should_be = force_theme or windows_theme_is_dark()
 
--- Align Nvim theme
-local function theme_alignment(is_os_dark)
-  if (is_os_dark) then
-    vim.o.background = "dark"
-  else
-    vim.o.background = "light"
+  -- Only run when changing
+  if vim.o.background ~= should_be then
+    vim.o.background = should_be
+    local powershell_font_theme = (vim.o.background == BackgroundOptions.LIGHT) and powershell_light or powershell_dark
+    local powershell_font_cmd = "TermExec cmd=\"Set-PSReadLineOption -Colors " .. powershell_font_theme .. "; cls;\""
+    print(powershell_font_cmd)
+    pcall(vim.cmd, powershell_font_cmd)
+    pcall(vim.cmd, "mode")
   end
-end
-
--- Run at start
-function M.theme_handle(isDark)
-  if (is_windows_os) then
-    theme_alignment(isDark or windows_theme_is_dark())
-    pcall(vim.cmd,
-      "TermExec cmd=\"~\\AppData\\Local\\nvim\\windows-theme-management\\set-pwsh-font-color.ps1 " ..
-      vim.o.background .. "; cls;\"")
-  else
-    theme_alignment(isDark or linux_theme_is_dark())
-  end
-  pcall(vim.cmd, "mode")
 end
 
 return M

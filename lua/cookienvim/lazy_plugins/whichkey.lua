@@ -137,8 +137,8 @@ return {
         t = {
           name = "[T]heme",
           a = { require("cookienvim.thememod").theme_handle, "[A]lign" },
-          d = { function() require("cookienvim.thememod").theme_handle(true) end, "[D]ark" },
-          l = { function() require("cookienvim.thememod").theme_handle(false) end, "[L]ight" },
+          d = { function() require("cookienvim.thememod").theme_handle(BackgroundOptions.DARK) end, "[D]ark" },
+          l = { function() require("cookienvim.thememod").theme_handle(BackgroundOptions.LIGHT) end, "[L]ight" },
           t = { function() vim.cmd("Telescope colorscheme") end, "[T]elescope" },
         },
         w = { utils.format_and_save, "[W]rite All" }

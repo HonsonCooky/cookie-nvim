@@ -2,7 +2,5 @@ Enabled: true
 Component:
   Scripts:
   - Name: Neovim Theme Update
-    Command: powershell 
-    ArgsLight: [pwsh -ExecutionPolicy Bypass -File $Env:LOCALAPPDATA\\nvim\\windows-theme-management\\update-nvim-themes.ps1 light]
-    ArgsDark: [pwsh -ExecutionPolicy Bypass -File $Env:LOCALAPPDATA\\nvim\\windows-theme-management\\update-nvim-themes.ps1 dark]
+    Command: powershell -c "Get-ChildItem \\.\pipe\ -Filter '*nvim.*' | ForEach-Object -Process { nvim --headless --server $_ --remote-send '<C-\><C-N>:lua require('cookienvim.thememod').theme_handle()<CR>'}"
     AllowedSources: [Any]
