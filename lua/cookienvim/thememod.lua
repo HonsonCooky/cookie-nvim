@@ -53,20 +53,24 @@ local function windows_theme_is_dark()
   return (string.find(reg_value, "1") == nil) and BackgroundOptions.DARK or BackgroundOptions.LIGHT
 end
 
+
+function M.align_terminal_colors()
+  local powershell_font_theme = (vim.o.background == BackgroundOptions.LIGHT) and powershell_light or powershell_dark
+  local powershell_font_cmd = 'TermExec cmd="Set-PSReadLineOption -Colors ' .. powershell_font_theme .. '; cls;"'
+  pcall(vim.cmd, powershell_font_cmd)
+  pcall(vim.cmd, "mode")
+end
+
 --~ Switch between light and dark theme. This function does more than switch themes / backgrounds, and should be used
 --for all theme changes
 --@param force_theme a BackgroundOptions value
-function M.theme_handle(force_theme)
+function M.align_theme(force_theme)
   local should_be = force_theme or windows_theme_is_dark()
 
   -- Only run when changing
   if vim.o.background ~= should_be then
     vim.o.background = should_be
-    local powershell_font_theme = (vim.o.background == BackgroundOptions.LIGHT) and powershell_light or powershell_dark
-    local powershell_font_cmd = "TermExec cmd=\"Set-PSReadLineOption -Colors " .. powershell_font_theme .. "; cls;\""
-    print(powershell_font_cmd)
-    pcall(vim.cmd, powershell_font_cmd)
-    pcall(vim.cmd, "mode")
+    M.align_terminal_colors()
   end
 end
 

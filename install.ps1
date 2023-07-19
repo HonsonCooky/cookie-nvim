@@ -26,6 +26,10 @@ $ensure_installed = @(
     # CSharp
     "dotnet-sdk",
 
+    # Lua
+    "lua",
+    "lua-language-server",
+
     # Python
     "python",
     

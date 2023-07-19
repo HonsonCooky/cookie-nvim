@@ -13,32 +13,7 @@ delivering the following feature set:
 - PowerShell 5.1.22621.1778 | 7.3.5 ✅
 - nvim-qt.exe ✅
 
-# Detecting Current Windows Theme
-
-By default, Neovim has an embedded terminal emulator, and can run shell scripts. Windows Registry contains configuration
-variable states, that can be accessed via the shell. Combining these two concepts, we get the following:
-
-```lua
-local function windows_theme_is_dark()
-    -- Build the shell command
-    local path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize"
-    local key = "SystemUsesLightTheme"
-    local sys_comm = "reg query " .. path .. ' /v "' .. key .. '"'
-
-    -- Execute shell command; Getting back register value (hex number).
-    local light_theme_sys_reg = vim.fn.system(sys_comm)
-
-    -- String manipulation: Convert output (0x00000000 | 0x00000001) to simple value.
-    -- This part is optional, and I do it for future potential. You can just "== "0x00000000""
-    local light_theme_sys_str = string.gsub(light_theme_sys_reg, "%s+", "")
-    local register_value = string.sub(light_theme_sys_str, -1)
-
-    -- 0x00000000 = dark, 0x00000001 = light
-    return register_value == "0"
-end
-```
-
-# Altering PowerShell Font Colors
+# Using PowerShell In Neovim
 
 Using the inbuilt Neovim terminal on Windows will default to Command Prompt. However, updating to use with PowerShell
 is easy (once you know where to look). `:h powershell`. The following is an example of how to setup PowerShell in `Lua`.
@@ -58,26 +33,87 @@ for option, value in pairs(powershell_options) do
 end
 ```
 
+**This is an important step for the rest of this setup**
+
+# Detecting Current Windows Theme
+
+The Windows Registry contains configuration variable states that can be accessed via the shell. By utilizing Neovim's
+ability to run shell scripts, we can access the Windows current theme at any time. E.g.:
+
+```lua
+local function windows_theme_is_dark()
+  local cmdlet = "Get-ItemPropertyValue"
+  local path = " -Path HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize"
+  local name = " -Name AppsUseLightTheme"
+  local cmd = cmdlet .. path .. name
+  local reg_value = vim.fn.system(cmd)
+  return (string.find(reg_value, "1") == nil)
+end
+```
+
+# Altering PowerShell Font Colors
+
 Using the terminal emulator (with ToggleTerm) does not automatically update the font colors of the terminal. This
 becomes a problem when keywords highlighted in yellow (e.g. `cd`) are displayed on a white background.
 
-The powershell script `set-pwsh-font-color.ps1` updates the font color of the terminal it is run inside of. These font
-colors only effect the current terminal and it's session, so we can run this script without fear of disturbing the rest
-of our Windows PowerShell instances. This is a nice little add on, to improve the usability of the inbuilt terminal.
+Thankfully, PowerShell font colors can be updated with the cmdlet `Set-PSReadLineOption -Colors @{...}`. The command
+uses a hashtable with differnt values for different highlight groups. You can see an example of this in the
+`./lua/cookienvim/thememod.lua`:
+
+- [Table Declaration](https://github.com/HonsonCooky/cookie-nvim/blob/main/lua/cookienvim/thememod.lua#L5)
+- [Script Call](https://github.com/HonsonCooky/cookie-nvim/blob/main/lua/cookienvim/thememod.lua#L66)
 
 # Updating Theme On Windows Theme Change
 
-On of the more underrated features of VSCode, is it's ability to react to the OS theme. Thus, programs that enable you
-to switch OS theme with a keybinding, double as IDE theme changers. This removes a lot of friction with theme
-management, enabling developers to quickly change theme depending on brightness levels in the room.
+One highly under-rated feature from other IDE's and applications, is the ability to update the theme based on the OS.
+For those more proactive with their theme switching, global keybindings and applications can be used to quickly switch
+between light and dark themes. Unfortunately, Neovim doesn't currently offer this functionality natively (it's
+debatable whether it should). Fortunately, Neovim opens up an API via RPC; Running instances can be remotely accessed
+and updated.
 
-On Windows, a common application for theme switching is
-[Auto Dark Mode](https://apps.microsoft.com/store/detail/auto-dark-mode/XP8JK4HZBVF435). This application only switches
-the OS theme, however, programs like VSCode, Edge and Chrome will respond to this theme change. Unfortunately, Neovim
-doesn't have this same feature, which makes
-
-
-
+**_Example:_**
 https://github.com/HonsonCooky/cookie-nvim/assets/39540045/7062c852-dc7e-4d5d-800c-53d0bc1559ec
 
+## How It Works
 
+Neovim's API opens a new RPC connection for every new instance. Therefore, the editor running on your local machine has
+an endpoint. All we need to do, is somehow find all Neovim RPC endpoints, then send them a command when the OS theme
+changes... easy.
+
+## CookieNvim Implementation
+
+On Windows, a popular application for OS theme switching is 'Auto Dark Mode' (ADM). I've used this application for my
+implementation, however, the only requirement for viablilty (aside from changing the OS theme), is to be able to run a
+custom script.
+
+Now that we can change the OS theme with relative ease, we need to run a script. For ADM, this can be accessed by:
+
+- **_In App:_** Go to the bottom of the `settings` panel, and click the link `Open config folder`.
+- **_Path:_** `$Env:APPDATA\AutoDarkMode`
+
+Inside the ADM folder, there is a `scripts.yaml` file. You can find further instructions on how to set this up
+[here](https://github.com/AutoDarkMode/Windows-Auto-Night-Mode/wiki/How-to-add-custom-scripts). I've stored a copy of my
+implementation in the `./windows-theme-management/scripts.yaml` file.
+
+The yaml script runs every time ADM changes the theme. CookieNvim's implementation triggers a PowerShell script
+(`nvim-rmt-theme.ps1`), which in turn, sends the nvim API command to all found RPC pipelines. You may notice that
+`nvim-rmt-theme.ps1` is a one liner. This was an attempt to minize the setup, by running the command directly from the
+ADM yaml script. Unfortunately, for one reason or another, I have not successfully found a way to achieve this. It's not
+all bad new though, any updates to the theme changing vim command, can be achieved without needing to restart ADM.
+
+### Potential Alternative
+
+I haven't explored this idea fully yet, as it seems resource wasteful. However, Neovim has the ability to run background
+tasks. One could setup a forever loop, that checks the Windows Registry and reacts to changes. This code could exist as
+part of your Neovim configuration, and therefore, have no external dependancies.
+
+I was able to successfully mock a lua function implements this (but I haven't gone as far as to make it a running
+background process). The benefit of this design (beyond removing external dependancies) could be fast reactivity. The
+ADM approach changes the OS theme, THEN runs the script (adding a slight delay to the change). This implementation would
+remove a lot of steps in the process.
+
+CookieNvim uses the ADM reactive approach, as theme switching does not occur often throughout the day; Neovim may be
+open for hours, and never change theme. Having an automated theme switcher however, is a nice add on that removes some
+friction from being a Neovim developer.
+
+If you have some idea on how to achieve this alternative efficiently, I'd be very keen to hear about it.

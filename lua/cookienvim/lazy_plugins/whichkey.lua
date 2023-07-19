@@ -79,8 +79,8 @@ return {
         H = { vim.lsp.buf.signature_help, 'Signature [H]elp' },
         K = { vim.lsp.buf.hover, 'Hover Documentation' },
         -- Workspace Shortcuts
-        w = {
-          name = "[W]orkspace",
+        N = {
+          name = "[N]ew",
           a = { vim.lsp.buf.add_workspace_folder, '[A]dd Folder' },
           l = { function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, '[L]ist Folders' },
           r = { vim.lsp.buf.remove_workspace_folder, '[R]emove Folder' },
@@ -127,18 +127,20 @@ return {
           name = "[L]SP",
           a = { vim.lsp.buf.code_action, 'Code [A]ction' },
           d = { vim.lsp.buf.type_definition, 'Type [D]efinition' },
+          D = { vim.lsp.buf.declaration, '[D]eclaration' },
           f = { vim.lsp.buf.format, '[F]ormat' },
           r = { vim.lsp.buf.rename, '[R]ename' },
+          R = { vim.lsp.buf.references, "[R]eferences" },
           s = { telescope.lsp_document_symbols, '[S]ymbols' },
-          w = { utils.toggle_wrap, '[W]rap' }
+          w = { utils.toggle_wrap, '[W]rap' },
         },
         q = { utils.safe_quit, '[Q]uit' },
         r = { utils.reload_buffer, '[R]eload Buffer' },
         t = {
           name = "[T]heme",
-          a = { require("cookienvim.thememod").theme_handle, "[A]lign" },
-          d = { function() require("cookienvim.thememod").theme_handle(BackgroundOptions.DARK) end, "[D]ark" },
-          l = { function() require("cookienvim.thememod").theme_handle(BackgroundOptions.LIGHT) end, "[L]ight" },
+          a = { require("cookienvim.thememod").align_theme, "[A]lign" },
+          d = { function() require("cookienvim.thememod").align_theme(BackgroundOptions.DARK) end, "[D]ark" },
+          l = { function() require("cookienvim.thememod").align_theme(BackgroundOptions.LIGHT) end, "[L]ight" },
           t = { function() vim.cmd("Telescope colorscheme") end, "[T]elescope" },
         },
         w = { utils.format_and_save, "[W]rite All" }
