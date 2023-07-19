@@ -1,47 +1,77 @@
 # Neovim Windows Theme Management
 
-Neovim doesn't come with many caked in features, however, it does an excellent job of creating an interface to extend
-the base program. As a developer, I utilize both light and dark themes, to match the environment I'm working in. Windows 
-has some applications and features that enable a smoother experience jumping between themes, however, these are not 
-automatically implemented in Neovim. 
-
-This subfolder contains resources that aid in creating a smooth theme switching experience on Windows. This document
-will outline my approach to:
+This subfolder contains resouces to aid with theme management in Neovim. CookieNvim uses these resources to aid in
+delivering the following feature set:
 
 - Detecting the current Windows theme, and reacting to it.
-- Altering the default font colors in PowerShell.
-- Updating Neovim on OS theme change.
+- Altering the inbuilt PowerShell terminal's font colors.
+- Updating the Neovim theme on update.
 
 # Environment Testing
 
-- Windows 10 | 11                       ✅
-- PowerShell 5.1.22621.1778 | 7.3.5     ✅
-- nvim-qt.exe                           ✅
+- Windows 10 | 11 ✅
+- PowerShell 5.1.22621.1778 | 7.3.5 ✅
+- nvim-qt.exe ✅
 
-# Basic Theory
+# Detecting Current Windows Theme
 
-By default, Neovim has an embedded terminal emulator. Thus, we can utilize the power of PowerShell to aid in creating a
-theme reactive IDE. Windows stores many of it's runtime configurations in the `registry`. 
+By default, Neovim has an embedded terminal emulator, and can run shell scripts. Windows Registry contains configuration
+variable states, that can be accessed via the shell. Combining these two concepts, we get the following:
 
-## Getting Windows Theme
+```lua
+local function windows_theme_is_dark()
+    -- Build the shell command
+    local path = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize"
+    local key = "SystemUsesLightTheme"
+    local sys_comm = "reg query " .. path .. ' /v "' .. key .. '"'
 
-In the Windows registry, there exists a variable that indicates if Windows is currently using light or dark theme mode.
-We can run a PowerShell command to extract this value, and thus, we can access the value in Neovim. Now, we have a
-reliable way to determine the OS theme; With a little Lua logic, we can align Neovim to the current Windows OS theme.
+    -- Execute shell command; Getting back register value (hex number).
+    local light_theme_sys_reg = vim.fn.system(sys_comm)
 
-See example `./lua/cookienvim/thememod.lua:6`
+    -- String manipulation: Convert output (0x00000000 | 0x00000001) to simple value.
+    -- This part is optional, and I do it for future potential. You can just "== "0x00000000""
+    local light_theme_sys_str = string.gsub(light_theme_sys_reg, "%s+", "")
+    local register_value = string.sub(light_theme_sys_str, -1)
 
+    -- 0x00000000 = dark, 0x00000001 = light
+    return register_value == "0"
+end
+```
 
 # Altering PowerShell Font Colors
 
-Using the inbuilt Neovim terminal with PowerShell is easy (once you know where to look). 
-`:h powershell` should provide you with all the information you need here, but if you'd like a Lua example, check out 
-'./lua/cookienvim/lazy_plugins/toggleterm.lua:9'.
+Using the inbuilt Neovim terminal on Windows will default to Command Prompt. However, updating to use with PowerShell
+is easy (once you know where to look). `:h powershell`. The following is an example of how to setup PowerShell in `Lua`.
 
-`set-pwsh-font-color.ps1` will update the font colors for the inbuilt Neovim PowerShell terminal (font updates are 
-localized to this Neovim instance). PowerShell's default font colors are incredibly difficult to read with a light 
-background. So, by running this script on theme change, my inbuilt terminal's highlighting becomes a lot easier to read. 
+```lua
+local powershell_options = {
+    shell = vim.fn.executable "pwsh" == 1 and "pwsh" or "powershell",
+    shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
+    shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait",
+    shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode",
+    shellquote = "",
+    shellxquote = ""
+}
 
-# update-nvim-themes.ps1
+for option, value in pairs(powershell_options) do
+    vim.opt[option] = value
+end
+```
 
-Docs coming in ~24 hours
+Using the terminal emulator (with ToggleTerm) does not automatically update the font colors of the terminal. This
+becomes a problem when keywords highlighted in yellow (e.g. `cd`) are displayed on a white background.
+
+The powershell script `set-pwsh-font-color.ps1` updates the font color of the terminal it is run inside of. These font
+colors only effect the current terminal and it's session, so we can run this script without fear of disturbing the rest
+of our Windows PowerShell instances. This is a nice little add on, to improve the usability of the inbuilt terminal.
+
+# Updating Theme On Windows Theme Change
+
+On of the more underrated features of VSCode, is it's ability to react to the OS theme. Thus, programs that enable you
+to switch OS theme with a keybinding, double as IDE theme changers. This removes a lot of friction with theme
+management, enabling developers to quickly change theme depending on brightness levels in the room.
+
+On Windows, a common application for theme switching is
+[Auto Dark Mode](https://apps.microsoft.com/store/detail/auto-dark-mode/XP8JK4HZBVF435). This application only switches
+the OS theme, however, programs like VSCode, Edge and Chrome will respond to this theme change. Unfortunately, Neovim
+doesn't have this same feature, which makes
