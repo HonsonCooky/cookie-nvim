@@ -25,6 +25,7 @@ $ensure_installed = @(
 
     # CSharp
     "dotnet-sdk",
+    "nuget",
 
     # Lua
     "lua",
