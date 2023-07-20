@@ -90,7 +90,7 @@ return {
           p = { vim.diagnostic.goto_prev, "[P]revious" },
           t = { telescope_builtin.diagnostics, "[T]elescope" },
         },
-        e = { function() vim.cmd("Neotree position=right") end, "File [E]xplorer" },
+        e = { function() vim.cmd("Neotree source=filesystem toggle=true position=right") end, "File [E]xplorer" },
         f = {
           name = "[F]ind",
           ["/"] = { telescope_builtin.oldfiles, "History" },
