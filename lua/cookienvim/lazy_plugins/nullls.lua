@@ -8,6 +8,7 @@ return {
         local formatting = null_ls.builtins.formatting
 
         null_ls.setup({
+            default_timeout = 10000,
             sources = {
                 formatting.csharpier,     -- C#
                 formatting.prettier,      -- TypeScript, React
