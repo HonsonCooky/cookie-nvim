@@ -117,7 +117,7 @@ return {
         l = {
           name = "[L]SP",
           a = { vim.lsp.buf.code_action, 'Code [A]ction' },
-          f = { vim.lsp.buf.format, '[F]ormat' },
+          f = { utils.format, '[F]ormat' },
           r = { vim.lsp.buf.rename, '[R]ename' },
           w = { utils.toggle_wrap, '[W]rap' },
         },

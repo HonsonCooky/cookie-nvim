@@ -7,10 +7,7 @@ function M.reload_buffer()
 end
 
 function M.format()
-  vim.lsp.buf.format({
-    filter = function(client) return client.name ~= "tsserver" end,
-    async = false
-  })
+  vim.lsp.buf.format({ timeout_ms = 5000 })
 end
 
 -- Format the document, then save the format
