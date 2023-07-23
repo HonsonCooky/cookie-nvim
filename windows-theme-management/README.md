@@ -61,7 +61,7 @@ uses a hashtable with differnt values for different highlight groups. You can se
 `./lua/cookienvim/thememod.lua`:
 
 - [Table Declaration](https://github.com/HonsonCooky/cookie-nvim/blob/main/lua/cookienvim/thememod.lua#L5)
-- [Script Call](https://github.com/HonsonCooky/cookie-nvim/blob/main/lua/cookienvim/thememod.lua#L66)
+- [Script Call](https://github.com/HonsonCooky/cookie-nvim/blob/main/lua/cookienvim/thememod.lua#L57)
 
 # Updating Theme On Windows Theme Change
 
@@ -72,6 +72,7 @@ debatable whether it should). Fortunately, Neovim opens up an API via RPC; Runni
 and updated.
 
 **_Example:_**
+
 https://github.com/HonsonCooky/cookie-nvim/assets/39540045/7062c852-dc7e-4d5d-800c-53d0bc1559ec
 
 ## How It Works
