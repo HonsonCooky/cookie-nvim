@@ -5,7 +5,7 @@ delivering the following feature set:
 
 - Detecting the current Windows theme, and reacting to it.
 - Altering the inbuilt PowerShell terminal's font colors.
-- Updating the Neovim theme on update.
+- Updating the Neovim theme on OS theme update.
 
 # Environment Testing
 
