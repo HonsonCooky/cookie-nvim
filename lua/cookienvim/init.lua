@@ -65,4 +65,4 @@ require("lazy").setup("cookienvim.lazy_plugins")
 -- -----------------------------------------------------------------------------------------------------------------
 local source_repo_loc = os.getenv("UserProfile") .. "/source"
 vim.cmd("cd " .. source_repo_loc)
-require("cookienvim.thememod").align_theme()
+require("cookienvim.thememod").align_theme(nil, true)
