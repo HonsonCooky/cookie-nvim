@@ -63,3 +63,19 @@ dotnet tool install --global csharp-ls
 rustup toolchain install stable-x86_64-pc-windows-gnu
 rustup default stable-x86_64-pc-windows-gnu
 
+# Install Catppuccin theme for PowerShell
+if (!(Test-Path -Path $HOME\Documents\PowerShell\Modules\Catppuccin))
+{
+    git clone https://github.com/catppuccin/powershell $HOME\Documents\PowerShell\Modules\Catppuccin
+}
+
+$CookieProfile = [IO.File]::ReadAllText("$Env:LOCALAPPDATA\nvim\windows-theme-management\Microsoft.PowerShell_profile.ps1")
+$CurProfile = [IO.File]::ReadAllText($PROFILE)
+
+if ($CurProfile -notlike "*Import-Module Catppuccin*")
+{
+    $ParamsSig = "param(`$Theme)"
+    $Content = $ParamsSig + $CurProfile + $CookieProfile
+    Set-Content -Path $PROFILE -Value $Content
+}
+
