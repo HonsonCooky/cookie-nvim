@@ -27,11 +27,6 @@ return {
     -- --------------------------------------------------------
     -- NORMAL MODE
     -- --------------------------------------------------------
-    -- Non-Silent
-    whichkey.register({
-        [";"] = { ":", "Vim Command" }, -- Just makes life a little easier
-      },
-      { mode = "n", silent = false })
     -- Silent
     whichkey.register({
         -- Terminal
