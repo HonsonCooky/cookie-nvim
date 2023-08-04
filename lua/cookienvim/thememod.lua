@@ -1,4 +1,3 @@
-local utilmods = require "cookienvim.utilmods"
 local toggleTerm = require "toggleterm.terminal"
 local M = {}
 

@@ -12,7 +12,6 @@ return {
       'williamboman/mason-lspconfig.nvim',
 
       -- Useful status updates for LSP
-      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
@@ -22,6 +21,8 @@ return {
       local servers = {
         clangd = {},
         csharp_ls = {},
+        eslint = {},
+        html = {},
         lua_ls = {
           Lua = {
             workspace = { checkThirdParty = false },
@@ -29,9 +30,12 @@ return {
           },
         },
         powershell_es = {},
+        prettier = {},
+        prismals = {},
         pyright = {},
         rust_analyzer = {},
         sqlls = {},
+        tailwindcss = {},
         terraformls = {},
         tsserver = {},
         volar = {},
