@@ -35,6 +35,8 @@ opts.timeoutlen = 100
 opts.updatetime = 250
 opts.undofile = true
 opts.expandtab = true
+opts.tabstop = 2
+opts.shiftwidth = 2
 opts.smartindent = true
 
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
