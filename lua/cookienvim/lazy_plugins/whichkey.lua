@@ -99,7 +99,7 @@ return {
         },
         g = {
           name = "[G]it",
-          g = { function() vim.cmd("LazyGitCurrentFile") end, "Lazy[G]it" },
+          g = { function() vim.cmd("LazyGit") end, "Lazy[G]it" },
           p = { gitsigns.prev_hunk, "[P]revious Hunk" },
           n = { gitsigns.next_hunk, "[N]ext Hunk" },
           h = { gitsigns.preview_hunk, "Preview [H]unk" },
