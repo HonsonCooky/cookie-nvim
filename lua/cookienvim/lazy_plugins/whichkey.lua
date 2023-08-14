@@ -120,7 +120,6 @@ return {
         r = { utils.reload_buffer, '[R]eload Buffer' },
         t = {
           name = "[T]heme",
-          a = { themes.align_theme, "[A]lign" },
           d = { function() themes.align_theme(BackgroundOptions.DARK) end, "[D]ark" },
           l = { function() themes.align_theme(BackgroundOptions.LIGHT) end, "[L]ight" },
           t = { function() vim.cmd("Telescope colorscheme") end, "[T]elescope" },
