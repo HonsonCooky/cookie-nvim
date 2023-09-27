@@ -20,6 +20,9 @@ return {
     config = function()
       local servers = {
         clangd = {},
+        cmake = {
+          buildDirectory = "out\build"
+        },
         csharp_ls = {},
         eslint = {},
         html = {},

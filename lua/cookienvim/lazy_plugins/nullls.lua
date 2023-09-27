@@ -9,6 +9,7 @@ return {
 
         null_ls.setup({
             sources = {
+                formatting.clang_format,
                 formatting.csharpier,     -- C#
                 formatting.prettier,      -- TypeScript, React
                 formatting.stylua,        -- Lua
