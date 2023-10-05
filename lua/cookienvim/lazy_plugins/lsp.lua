@@ -33,7 +33,6 @@ return {
           },
         },
         powershell_es = {},
-        prettier = {},
         prismals = {},
         pyright = {},
         rust_analyzer = {},
