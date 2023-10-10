@@ -6,7 +6,7 @@ local max_size = 20
 local min_size = 10
 
 function M.setup()
-    vim.o.guifont = font_family .. ":h" .. font_size
+    vim.go.guifont = font_family .. ":h" .. font_size
 end
 
 function M.font_increase()
