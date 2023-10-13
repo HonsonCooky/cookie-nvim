@@ -56,9 +56,9 @@ function M.toggle_wrap()
 end
 
 function M.toggle_spell()
-  vim.wo.spell = not vim.wo.spell
+  vim.opt_local.spell = not vim.opt_local.spell:get()
   vim.cmd("mode")
-  print("Spell check is " .. (vim.wo.spell and "on" or "off"))
+  print("Spell check is " .. (vim.opt_local.spell:get() and "on" or "off"))
 end
 
 -- Determine the current os
