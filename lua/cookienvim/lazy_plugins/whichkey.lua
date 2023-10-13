@@ -83,6 +83,7 @@ return {
           f = { vim.diagnostic.open_float, "[F]loat" },
           n = { vim.diagnostic.goto_next, "[N]ext" },
           p = { vim.diagnostic.goto_prev, "[P]revious" },
+          s = { utils.toggle_spell, "[S]pell Check Toggle" },
           t = { telescope_builtin.diagnostics, "[T]elescope" },
         },
         e = { function() vim.cmd("Neotree source=filesystem toggle=true position=right") end, "File [E]xplorer" },

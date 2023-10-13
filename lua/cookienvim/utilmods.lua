@@ -55,6 +55,12 @@ function M.toggle_wrap()
   end
 end
 
+function M.toggle_spell()
+  vim.wo.spell = not vim.wo.spell
+  vim.cmd("mode")
+  print("Spell check is " .. (vim.wo.spell and "on" or "off"))
+end
+
 -- Determine the current os
 function M.is_windows_os()
   return string.find(string.lower(vim.loop.os_uname().sysname), "windows") ~= nil
