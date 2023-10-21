@@ -1,33 +1,25 @@
 # CookieNvim
 
-Welcome to CookieNvim, an opinionate Neovim configuration for Windows 10/11. As a Neovim configuration, my focus is on
+Welcome to CookieNvim, an opinionated Neovim configuration for Windows 10/11. As a Neovim configuration, my focus is on
 the following (ordered by importance):
 
-- **_Usablilty:_** Runs with personal && work computers (no admin privileges).
-- **_Replicability:_** Environment requirements are setup programmatically.
-- **_Ease-Of-Use:_** Intelli-sense | Debugging | Automatic Themes | Keybindings for RSI sake.
+- **_Usability:_** Runs with personal && work computers (no admin privileges).
+- **_Reproducibility:_** Environment requirements are setup programmatically.
+- **_Ease-Of-Use:_** IntelliSense | Debugging | Automatic Themes | Keybindings for RSI sake.
 - **_Minimalist:_** As little 'CookieNvim specific' components, as possible.
-
-CookieNvim is a personal configuration. As such, post configuration of themes, keybindings, etc are not foudn here (see
-LunarVim, NvChad, AstroNvim, or LazyVim for such environments). However, being an open-source Neovim configuration, you
-can always fork/copy this configuration and make it your own 🙂.
 
 ## Default Development Environments
 
 By default, CookieNvim is setup for the following:
 
 - `.Net | C#`,
-- `NodeJS | TypeScript | Vue.js | Next.js | Tailwindcss`,
+- `Node.js | TypeScript | Vue.js | Next.js | React | Tailwind CSS`,
+- `C++`,
 - `Rust`,
-- `GitHub | Workflows | CodeSpaces`,
-- `Azure Cloud Services`
+- `GitHub | Workflows | Codespaces`,
 
-## CookieNvim Specific Features
-
-- Integration with 'Auto Dark Mode'.
-- Dynamic PowerShell font colors.
-- Automatic NerdFont setup.
-- Programmatic Installation.
+There is a heavy reliance on CLI-first tooling, accomplishing the capabilities of a full-stack modern developer from a
+text based tool.
 
 # Installation
 
@@ -44,20 +36,20 @@ git clone https://github.com/HonsonCooky/cookie-nvim $env:LOCALAPPDATA\nvim;
 .\$env:LOCALAPPDATA\nvim\install.ps1;
 ```
 
-- Run `Neovim` executable (Windows Search: `nvim-qt`)
+- Open Neovim
 
-## Other
-
-Currently, CookieNvim is setup for Windows-Only use. Future updates to my development envrionment may change this.
+_Note:_ This Neovim configuration is setup for the dedicated Windows tool `nvim-qt.exe`. The `Windows Terminal`
+application can remove some functionality with overlapping keybindings.
 
 # Packages
 
-**_PackageManager:_** [lazy.nvim](https://github.com/folke/lazy.nvim)
+**_Package Manager:_** [lazy.nvim](https://github.com/folke/lazy.nvim)
 
 All packages (and configurations) can be found in the `./lua/cookienvim/lazy_plugins` directory.
 
 | Package Name                        | Description                                       |
 | ----------------------------------- | ------------------------------------------------- |
+| [auto-dark-mode.nvim][autodarkmode] | Sync Neovim theme with system                     |
 | [comment.nvim][comment]             | Comment out highlighted lines                     |
 | [gitsigns.nvim][gitsigns]           | Git sidebar decorators                            |
 | [harpoon][harpoon]                  | Jump between marked buffers                       |
@@ -77,8 +69,9 @@ All packages (and configurations) can be found in the `./lua/cookienvim/lazy_plu
 | [vim-rhubarb][rhubarb]              | Fugitive extension for URLS                       |
 | [which-key.nvim][whichkey]          | UI Keybinding assistance                          |
 
-[autopairs]: https://github.com/windwp/nvim-autopairs
 [autocomplete]: https://github.com/hrsh7th/nvim-cmp
+[autodarkmode]: https://github.com/f-person/auto-dark-mode.nvim
+[autopairs]: https://github.com/windwp/nvim-autopairs
 [comment]: https://github.com/numToStr/Comment.nvim
 [fugitive]: https://github.com/tpope/vim-fugitive
 [gitsigns]: https://github.com/lewis6991/gitsigns.nvim
