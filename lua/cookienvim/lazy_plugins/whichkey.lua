@@ -57,9 +57,10 @@ return {
         J = { "mzJ`z", "Fancy Line Pull" },
 
         -- Harpoon Navigation
-        ["<A-f>"] = { function() harpoon_ui.nav_file(vim.v.count) end, "Harpoon Navigate To [F]ile" },
-        ["<A-d>"] = { function() harpoon_ui.nav_next() end, "Harpoon Navigate Next" },
-        ["<A-s>"] = { function() harpoon_ui.nav_prev() end, "Harpoon Navigate Prev" },
+        ["<A-a>"] = { harpoon_mark.add_file, "Harpoon Add" },
+        ["<A-d>"] = { harpoon_ui.nav_prev, "Harpoon Navigate Prev" },
+        ["<A-f>"] = { harpoon_ui.nav_next, "Harpoon Navigate Next" },
+        ["<A-s>"] = { harpoon_ui.toggle_quick_menu, "Harpoon Files" },
 
         -- LSP Shortcuts
         g = {
@@ -84,7 +85,6 @@ return {
           n = { vim.diagnostic.goto_next, "[N]ext" },
           p = { vim.diagnostic.goto_prev, "[P]revious" },
           s = { utils.toggle_spell, "[S]pell Check Toggle" },
-          t = { telescope_builtin.diagnostics, "[T]elescope" },
         },
         e = { function() vim.cmd("Neotree source=filesystem toggle=true position=right") end, "File [E]xplorer" },
         f = {
@@ -104,11 +104,6 @@ return {
           p = { gitsigns.prev_hunk, "[P]revious Hunk" },
           n = { gitsigns.next_hunk, "[N]ext Hunk" },
           h = { gitsigns.preview_hunk, "Preview [H]unk" },
-        },
-        h = {
-          name = "[H]arpoon",
-          a = { harpoon_mark.add_file, "[A]dd" },
-          f = { harpoon_ui.toggle_quick_menu, "[F]iles" },
         },
         l = {
           name = "[L]SP",

@@ -3,7 +3,7 @@ local font_family = "JetBrainsMono NFM"
 local font_size = 14
 local step_size = 1
 local max_size = 20
-local min_size = 10
+local min_size = 4
 
 function M.setup()
     vim.go.guifont = font_family .. ":h" .. font_size
