@@ -74,15 +74,14 @@ whichkey.register(
             p = { vim.diagnostic.goto_prev, "[P]revious" },
             s = { ToggleSpell, "[S]pell Check Toggle" },
         },
-        e = { function() vim.cmd("Neotree source=filesystem toggle=true position=right") end, "File [E]xplorer" },
         f = {
             name = "[F]ind",
-            ["/"] = { telescope_builtin.oldfiles, "History" },
             b = { telescope_builtin.buffers, "[B]uffers" },
             d = { telescope_builtin.diagnostics, "[D]iagnostics" },
             f = { telescope_builtin.find_files, "[F]iles" },
             g = { telescope_builtin.git_files, "[G]it" },
             h = { telescope_builtin.help_tags, "[H]elp" },
+            o = { telescope_builtin.oldfiles, "History" },
             t = { telescope_builtin.live_grep, "[T]ext" },
             w = { telescope_builtin.grep_string, "[W]ord" },
         },
@@ -101,7 +100,6 @@ whichkey.register(
             w = { ToggleWrap, '[W]rap' },
         },
         r = { function() vim.cmd("e!") end, '[R]eload Buffer' },
-        t = { function() vim.cmd("Telescope colorscheme") end, "[T]heme [T]elescope" },
     },
     { mode = "n", prefix = "<leader>" }
 )
