@@ -27,6 +27,7 @@ require('lazy').setup({
     'windwp/nvim-autopairs',
     'numToStr/Comment.nvim',
     'folke/which-key.nvim',
+    'nvim-lua/plenary.nvim',
 
     -- Git
     'lewis6991/gitsigns.nvim',
@@ -46,8 +47,18 @@ require('lazy').setup({
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
 
+    -- Neo-tree
+    "nvim-neo-tree/neo-tree.nvim",
+    "nvim-tree/nvim-web-devicons",
+    "MunifTanjim/nui.nvim",
+
+    -- Treesitter
+    "nvim-treesitter/nvim-treesitter",
+    'nvim-treesitter/nvim-treesitter-context',
+    'nvim-treesitter/nvim-treesitter-refactor',
+    'nvim-treesitter/nvim-treesitter-textobjects',
+
     -- Telescope
-    'nvim-lua/plenary.nvim',
     'nvim-telescope/telescope.nvim',
     'nvim-telescope/telescope-fzf-native.nvim',
 
@@ -68,7 +79,7 @@ require("cookienvim.keymaps")
 
 
 --[[
-    GO TO SOURCE REPO
+    Jump into the "source" repo
 ]]
 local source_repo_loc = os.getenv("UserProfile") .. "/source"
 vim.cmd("cd " .. source_repo_loc)
