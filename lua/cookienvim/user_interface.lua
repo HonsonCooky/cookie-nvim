@@ -2,10 +2,10 @@
     Setup and initialize colors, fonts and other visual components
 ]]
 
--- ColorScheme
+--[[ColorScheme]]
 vim.cmd.colorscheme("catppuccin")
 
--- AutoDarkMode
+--[[AutoDarkMode]]
 require('auto-dark-mode').setup({
     update_interval = 1000,
     set_dark_mode = function()
@@ -18,7 +18,7 @@ require('auto-dark-mode').setup({
     end,
 })
 
--- Fonts
+--[[Fonts]]
 local font_family = "JetBrainsMono NFM"
 local font_size = 14
 local step_size = 1
@@ -29,14 +29,14 @@ local function font_setup()
     vim.o.guifont = font_family .. ":h" .. font_size
 end
 
-function FontIncrease()
+function Font_Increase()
     local prefix_count = math.max(vim.v.count, 1)
     local increment = step_size * prefix_count
     font_size = math.min(font_size + increment, max_size)
     font_setup()
 end
 
-function FontDecrease()
+function Font_Decrease()
     local prefix_count = math.max(vim.v.count, 1)
     local decrement = step_size * prefix_count
     font_size = math.max(font_size - decrement, min_size)
@@ -45,8 +45,8 @@ end
 
 font_setup()
 
--- Visual Aid
-function ToggleWrap()
+--[[Visual Aid]]
+function Toggle_Wrap()
     if vim.o.wrap then
         vim.o.textwidth = 0
         vim.o.wrap = false
@@ -58,8 +58,7 @@ function ToggleWrap()
     end
 end
 
-function ToggleSpell()
-    vim.opt_local.spell = not vim.opt_local.spell:get()
-    vim.cmd("mode")
-    print("Spell check is " .. (vim.opt_local.spell:get() and "on" or "off"))
+function Toggle_Spell_Check()
+    local buf = vim.api.nvim_get_current_buf()
+    vim.api.nvim_buf_set_option(buf, 'spell', not vim.api.nvim_buf_get_option(buf, 'spell'))
 end

@@ -1,10 +1,4 @@
 --[[
-    Initialize Vim defaults
-]]
-require("cookienvim.builtin_setup")
-
-
---[[
     Install necessary packages
 ]]
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -66,20 +60,3 @@ require('lazy').setup({
     'f-person/auto-dark-mode.nvim',
     'catppuccin/nvim',
 })
-
---[[
-    Orchestrate the initialization of each functionality group
-]]
-require("cookienvim.lsp_zero")
-require("cookienvim.telescope")
-require("cookienvim.theme")
-
--- Setup custom keymaps
-require("cookienvim.keymaps")
-
-
---[[
-    Jump into the "source" repo
-]]
-local source_repo_loc = os.getenv("UserProfile") .. "/source"
-vim.cmd("cd " .. source_repo_loc)
