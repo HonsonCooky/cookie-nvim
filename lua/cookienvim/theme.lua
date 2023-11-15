@@ -1,3 +1,7 @@
+--[[
+    Setup and initialize colors, fonts and other visual components
+]]
+
 -- ColorScheme
 vim.cmd.colorscheme("catppuccin")
 
@@ -40,3 +44,22 @@ function FontDecrease()
 end
 
 font_setup()
+
+-- Visual Aid
+function ToggleWrap()
+    if vim.o.wrap then
+        vim.o.textwidth = 0
+        vim.o.wrap = false
+        vim.o.colorcolumn = ""
+    else
+        vim.o.textwidth = 120
+        vim.o.wrap = true
+        vim.o.colorcolumn = "121"
+    end
+end
+
+function ToggleSpell()
+    vim.opt_local.spell = not vim.opt_local.spell:get()
+    vim.cmd("mode")
+    print("Spell check is " .. (vim.opt_local.spell:get() and "on" or "off"))
+end
