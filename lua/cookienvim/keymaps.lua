@@ -1,6 +1,5 @@
 local gitsigns = require('gitsigns')
-local harpoon_mark = require("harpoon.mark")
-local harpoon_ui = require("harpoon.ui")
+
 local telescope_builtin = require("telescope.builtin")
 local whichkey = require("which-key")
 
@@ -35,12 +34,6 @@ whichkey.register({
         ["<A-j>"] = { ":m .+1<CR>==", "Move Line Up" },
         ["<A-k>"] = { ":m .-2<CR>==", "Move Line Down" },
         J = { "mzJ`z", "Fancy Line Pull" },
-
-        -- Harpoon Navigation
-        ["<A-a>"] = { harpoon_mark.add_file, "Harpoon Add" },
-        ["<A-d>"] = { harpoon_ui.nav_prev, "Harpoon Navigate Prev" },
-        ["<A-f>"] = { harpoon_ui.nav_next, "Harpoon Navigate Next" },
-        ["<A-s>"] = { harpoon_ui.toggle_quick_menu, "Harpoon Files" },
 
         -- LSP Shortcuts
         l = {

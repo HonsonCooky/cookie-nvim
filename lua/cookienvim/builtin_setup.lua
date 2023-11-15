@@ -1,15 +1,11 @@
---[[
-    GLOBAL
-]]
+--[[GLOBAL]]
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.wo.number = true
 
---[[
-    OPTIONS
-]]
+--[[OPTIONS]]
 vim.opt.nu = true
 vim.opt.wrap = false
 vim.opt.breakindent = true
@@ -30,9 +26,7 @@ vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.smartindent = true
 
---[[
-    AUTOMATIONS
-]]
+--[[AUTOMATIONS]]
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
     callback = function() vim.highlight.on_yank() end,

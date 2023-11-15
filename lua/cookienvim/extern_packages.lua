@@ -1,6 +1,4 @@
---[[
-    Install necessary packages
-]]
+--[[Setup and Install Lazy.nvim if it doesn't exist on the system]]
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system {
@@ -14,49 +12,52 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- External Packages, split by functionality
+--[[Download external packages necessary for configuration]]
 require('lazy').setup({
-    -- Basic Assistance
-    'ThePrimeagen/harpoon',
+    --[[Basic Assistance]]
     'windwp/nvim-autopairs',
     'numToStr/Comment.nvim',
     'folke/which-key.nvim',
     'nvim-lua/plenary.nvim',
 
-    -- Git
+    --[[File Management]]
+    'nvim-telescope/telescope.nvim',
+    'nvim-telescope/telescope-fzf-native.nvim',
+    'nvim-telescope/telescope-file-browser.nvim',
+    'nvim-telescope/telescope-project.nvim',
+
+    --[[Git]]
     'lewis6991/gitsigns.nvim',
     'tpope/vim-fugitive',
     'tpope/vim-rhubarb',
 
-    -- LSP Zero
-    'VonHeikemen/lsp-zero.nvim',
+    --[[Language Assistance]]
     'neovim/nvim-lspconfig',
+    -- Language Assistance: AutoCompletion
     'hrsh7th/cmp-nvim-lsp',
+    'hrsh7th/cmp-buffer',
+    'hrsh7th/cmp-path',
+    'hrsh7th/cmp-cmdline',
     'hrsh7th/nvim-cmp',
     'L3MON4D3/LuaSnip',
+    'saadparwaiz1/cmp_luasnip',
+    -- Language Assistance: Debugging
     'mfussenegger/nvim-dap',
     'rcarriga/nvim-dap-ui',
+    -- Lanaguge Assistance: Linting and Formatting
     'mfussenegger/nvim-lint',
     'mhartington/formatter.nvim',
+    -- Language Assistance: Builtin Installer
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
-
-    -- Neo-tree
-    "nvim-neo-tree/neo-tree.nvim",
-    "nvim-tree/nvim-web-devicons",
-    "MunifTanjim/nui.nvim",
-
-    -- Treesitter
+    -- Language Assistance: Treesitter
     "nvim-treesitter/nvim-treesitter",
     'nvim-treesitter/nvim-treesitter-context',
     'nvim-treesitter/nvim-treesitter-refactor',
     'nvim-treesitter/nvim-treesitter-textobjects',
 
-    -- Telescope
-    'nvim-telescope/telescope.nvim',
-    'nvim-telescope/telescope-fzf-native.nvim',
-
-    -- Themes
+    --[[User Interface]]
     'f-person/auto-dark-mode.nvim',
     'catppuccin/nvim',
+    'nvim-lualine/lualine.nvim',
 })
