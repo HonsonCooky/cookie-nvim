@@ -3,30 +3,30 @@
 ]]
 
 --[[ColorScheme]]
-vim.cmd.colorscheme("catppuccin")
+vim.cmd.colorscheme('catppuccin')
 
 --[[AutoDarkMode]]
 require('auto-dark-mode').setup({
     update_interval = 1000,
     set_dark_mode = function()
         vim.o.background = 'dark'
-        vim.cmd("mode")
+        vim.cmd('mode')
     end,
     set_light_mode = function()
         vim.o.background = 'light'
-        vim.cmd("mode")
+        vim.cmd('mode')
     end,
 })
 
 --[[Fonts]]
-local font_family = "JetBrainsMono NFM"
+local font_family = 'JetBrainsMono NFM'
 local font_size = 14
 local step_size = 1
 local max_size = 20
 local min_size = 4
 
 local function font_setup()
-    vim.o.guifont = font_family .. ":h" .. font_size
+    vim.o.guifont = font_family .. ':h' .. font_size
 end
 
 function Font_Increase()
@@ -50,11 +50,11 @@ function Toggle_Wrap()
     if vim.o.wrap then
         vim.o.textwidth = 0
         vim.o.wrap = false
-        vim.o.colorcolumn = ""
+        vim.o.colorcolumn = ''
     else
         vim.o.textwidth = 120
         vim.o.wrap = true
-        vim.o.colorcolumn = "121"
+        vim.o.colorcolumn = '121'
     end
 end
 

@@ -25,11 +25,13 @@ whichkey.register({
         J = { "mzJ`z", "Fancy Line Pull" },
 
         -- UI Manipulations
-        u = {
+        ["<leader>u"] = {
             name = "[U]ser Interface",
             s = { Toggle_Spell_Check, "Toggle [S]pell Check" },
             w = { Toggle_Wrap, "Toggle Text [W]rap" },
-        }
+        },
+
+        ["<leader>w"] = { function () vim.cmd("wa") end, "[W]rite All"},
     },
     { mode = "n", noremap = true }
 )
