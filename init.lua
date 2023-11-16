@@ -12,9 +12,12 @@ require("cookienvim.builtin_setup")
 -- Download external plugins (lazy.nvim installs ONLY)
 require("cookienvim.extern_packages")
 
+-- Setup Whichkey for keymapping in packages
+require("which-key").setup({})
+
 -- Configure the packages to
+require("cookienvim.file_management")
 require("cookienvim.language_setup")
-require("cookienvim.fuzzy_finder")
 require("cookienvim.user_interface")
 
 -- Setup custom keymaps

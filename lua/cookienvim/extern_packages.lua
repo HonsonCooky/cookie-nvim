@@ -22,9 +22,10 @@ require('lazy').setup({
 
     --[[File Management]]
     'nvim-telescope/telescope.nvim',
-    'nvim-telescope/telescope-fzf-native.nvim',
     'nvim-telescope/telescope-file-browser.nvim',
+    'nvim-telescope/telescope-fzf-native.nvim',
     'nvim-telescope/telescope-project.nvim',
+    'nvim-telescope/telescope-ui-select.nvim',
 
     --[[Git]]
     'lewis6991/gitsigns.nvim',
