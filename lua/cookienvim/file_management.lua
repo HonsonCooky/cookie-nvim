@@ -37,8 +37,8 @@ pcall(ts.load_extension, 'ui-select')
 
 --[[Builtin Keybindings]]
 local tb = require("telescope.builtin")
-local tf = require("telescope").extensions.file_browser.file_browser
-local tp = function() require("telescope").extensions.project.project({ display_type = "full" }) end
+local tf = ts.extensions.file_browser.file_browser
+local tp = ts.extensions.project.project
 wk.register(
     {
         f = {
