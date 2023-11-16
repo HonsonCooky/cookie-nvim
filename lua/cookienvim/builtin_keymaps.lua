@@ -1,8 +1,6 @@
 local whichkey = require("which-key")
 
---[[
-    NORMAL MODE
-]]
+--[[NORMAL MODE]]
 whichkey.register({
         -- Terminal
         ["<C-`>"] = { function() vim.cmd("") end, "Open Terminal" },
@@ -33,27 +31,23 @@ whichkey.register({
             w = { Toggle_Wrap, "Toggle Text [W]rap" },
         }
     },
-    { mode = "n" }
+    { mode = "n", noremap = true }
 )
 
---[[
-    VISUAL MODE
-]]
+--[[VISUAL MODE]]
 whichkey.register({
         ["<A-j>"] = { ":m '>+1<CR>gv=gv", "Move Line Down" },
         ["<A-k>"] = { ":m '<-2<CR>gv=gv", "Move Line Up" },
     },
-    { mode = "v" }
+    { mode = "v", noremap = true }
 )
 
---[[
-    TERMINAL MODE
-]]
+--[[TERMINAL MODE]]
 whichkey.register({
         ["<C-h>"] = { "<C-\\><C-N><C-w>h", "Jump To Windows LEFT" },
         ["<C-j>"] = { "<C-\\><C-N><C-w>j", "Jump To Windows DOWN" },
         ["<C-k>"] = { "<C-\\><C-N><C-w>k", "Jump To Windows UP" },
         ["<C-l>"] = { "<C-\\><C-N><C-w>l", "Jump To Windows RIGHT" },
     },
-    { mode = "t" }
+    { mode = "t", noremap = true }
 )

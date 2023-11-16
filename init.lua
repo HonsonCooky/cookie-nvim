@@ -6,22 +6,21 @@
     Lua files are split based on included functionality (not package names).
 ]]
 
--- Initialize Vim defaults (vim.g.mapleader, etc)
-require("cookienvim.builtin_setup")
-
 -- Download external plugins (lazy.nvim installs ONLY)
 require("cookienvim.extern_packages")
 
--- Setup Whichkey for keymapping in packages
+-- Initialize Vim defaults (Must go before setup)
+require("cookienvim.builtin_setup")
+
+-- Setup Whichkey for keymapping during setup
 require("which-key").setup({})
 
--- Configure the packages to
+-- Configure Neovim Setup
+require("cookienvim.builtin_keymaps")
+require("cookienvim.user_interface")
 require("cookienvim.file_management")
 require("cookienvim.language_setup")
-require("cookienvim.user_interface")
 
--- Setup custom keymaps
-require("cookienvim.keymaps")
 
 -- Jump into the "source" repo
 local source_repo_loc = os.getenv("UserProfile") .. "/source"
