@@ -1,6 +1,3 @@
-tags
-test.sh
-.luarc.json
-nvim
 lazy-lock.json
-.vscode
+.vscode/*
+vim_keys.txt
