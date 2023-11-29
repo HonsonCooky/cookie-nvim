@@ -1,4 +1,6 @@
 local whichkey = require("which-key")
+local telescope_builtin = require("telescope.builtin")
+
 whichkey.setup()
 
 --[[NORMAL MODE]]
@@ -38,6 +40,17 @@ whichkey.register({
 
     -- File Management
     ["<leader>e"] = { ":Neotree source=filesystem toggle=true position=right reveal=true<CR>", "File [E]xplorer" },
+    ["<leader>f"] = {
+      name = "[F]ind",
+      b = { telescope_builtin.buffers, "[B]uffers" },
+      d = { telescope_builtin.diagnostics, "[D]iagnostics" },
+      f = { telescope_builtin.find_files, "[F]iles" },
+      g = { telescope_builtin.git_files, "[G]it" },
+      h = { telescope_builtin.help_tags, "[H]elp" },
+      j = { telescope_builtin.oldfiles, "History" },
+      t = { telescope_builtin.live_grep, "[T]ext" },
+      w = { telescope_builtin.grep_string, "[W]ord" },
+    },
     ["<leader>n"] = {
       name = "[N]eo Tree",
       b = { ":Neotree source=buffers toggle=true position=right reveal=true<CR>", "[B]uffer Explorer" },
@@ -46,7 +59,30 @@ whichkey.register({
     },
 
     -- Language Assistance
-    ["<leader>l"] = {}
+    K = { vim.lsp.buf.hover, "Hover" },
+    ["<leader>l"] = {
+      name = "[L]SP",
+      a = { vim.lsp.buf.code_action, 'Code [A]ction' },
+      f = { vim.lsp.buf.format, '[F]ormat' },
+      r = { vim.lsp.buf.rename, '[R]ename' },
+    },
+    g = {
+      name = "[G]oto",
+      d = {
+        name = "[D]iagnostic",
+        f = { vim.diagnostic.open_float, "[F]loat" },
+        j = { vim.diagnostic.goto_next, "Next" },
+        k = { vim.diagnostic.goto_prev, "Previous" },
+      },
+      l = {
+        name = "[L]sp",
+        d = { telescope_builtin.lsp_definitions, '[D]efinition' },
+        i = { telescope_builtin.lsp_implementations, '[I]mplementation' },
+        r = { telescope_builtin.lsp_references, '[R]eferences' },
+        s = { telescope_builtin.lsp_document_symbols, '[S]ymbols' },
+        t = { telescope_builtin.lsp_type_definitions, '[T]ype Definition' },
+      }
+    },
   },
   { mode = "n", noremap = true }
 )

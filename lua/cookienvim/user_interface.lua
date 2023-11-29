@@ -38,11 +38,42 @@ end
 
 font_setup()
 
+--[[LuaLine]]
+require("lualine").setup({
+  sections = {
+    lualine_c = {
+      'filename',
+      'lsp_progress'
+    }
+  }
+})
+
 --[[NeoTree]]
 require("neo-tree").setup()
 
---[[LuaLine]]
-require("lualine").setup()
+--[[TeleScope]]
+local ts = require('telescope')
+ts.setup({
+  defaults = {
+    initial_mode = 'normal',
+    sorting_strategy = 'ascending',
+    layout_config = {
+      horizontal = {
+        prompt_position = 'top',
+        preview_width = 0.55,
+        results_width = 0.8,
+      },
+      vertical = {
+        mirror = false,
+      },
+      width = 0.87,
+      height = 0.80,
+      preview_cutoff = 120,
+    },
+  },
+})
+pcall(ts.load_extension, 'fzf')
+pcall(ts.load_extension, 'ui-select')
 
 -- [[ToggleTerm]]
 require('toggleterm').setup({
