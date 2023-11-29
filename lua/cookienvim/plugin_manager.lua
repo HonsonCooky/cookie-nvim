@@ -66,4 +66,5 @@ require('lazy').setup({
     'catppuccin/nvim',
     'nvim-lualine/lualine.nvim',
     'arkav/lualine-lsp-progress',
+    'akinsho/toggleterm.nvim',
 })

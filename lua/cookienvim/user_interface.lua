@@ -17,7 +17,6 @@ require('auto-dark-mode').setup({
 --[[Fonts]]
 local font_family = 'JetBrainsMono NFM'
 local font_size = 14
-local step_size = 1
 local max_size = 20
 local min_size = 4
 
@@ -27,25 +26,43 @@ end
 
 function Font_Increase()
     local prefix_count = math.max(vim.v.count, 1)
-    local increment = step_size * prefix_count
-    font_size = math.min(font_size + increment, max_size)
+    font_size = math.min(font_size + prefix_count, max_size)
     font_setup()
 end
 
 function Font_Decrease()
     local prefix_count = math.max(vim.v.count, 1)
-    local decrement = step_size * prefix_count
-    font_size = math.max(font_size - decrement, min_size)
+    font_size = math.max(font_size - prefix_count, min_size)
     font_setup()
 end
 
 font_setup()
 
---[[Neotree]]
+--[[NeoTree]]
 require("neo-tree").setup()
 
---[[Lualine]]
+--[[LuaLine]]
 require("lualine").setup()
+
+-- [[ToggleTerm]]
+require('toggleterm').setup({
+    shade_terminals = false,
+    shell = vim.o.shell,
+    direction = 'horizontal',
+})
+
+function NewTerminal()
+    local buffers = vim.api.nvim_list_bufs()
+    local count = 0
+    for _, buf in ipairs(buffers) do
+        local buf_name = vim.api.nvim_buf_get_name(buf)
+        if buf_name:find("toggleterm#") then
+            count = count + 1
+        end
+    end
+    count = count + 1
+    vim.cmd(count .. "ToggleTerm direction=horizontal")
+end
 
 --[[Visual Aid]]
 function Toggle_Wrap()

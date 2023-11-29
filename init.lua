@@ -5,6 +5,12 @@
 ]]
 
 
-require("cookienvim.plugin_manager") -- Download necessary external packages first
-require("cookienvim.vim_setup")      -- Setup vim builtin settings
-require("cookienvim.user_interface") -- Setup the UI
+require("cookienvim.plugin_manager")    -- Download necessary external packages first
+require("cookienvim.vim_setup")         -- Setup vim builtin settings
+require("cookienvim.user_interface")    -- Setup the UI
+require("cookienvim.language_features") -- Setup LSP, Auto Completion, Formatters, Linters and Debuggers
+require("cookienvim.custom_keymaps")    -- Keymaps for everything above
+
+--[[Source Repository Starting Location]]
+local source_repo_loc = os.getenv("UserProfile") .. "/source"
+vim.cmd("cd " .. source_repo_loc)
