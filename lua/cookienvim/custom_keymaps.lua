@@ -62,6 +62,7 @@ whichkey.register({
     t = { telescope_builtin.live_grep, "[T]ext" },
     w = { telescope_builtin.grep_string, "[W]ord" },
   },
+  h = { vim.lsp.buf.signature_help, "Signature [H]elp" },
   l = {
     name = "[L]sp",
     a = { vim.lsp.buf.code_action, "Code [A]ction" },
