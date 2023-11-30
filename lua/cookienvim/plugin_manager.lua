@@ -56,8 +56,8 @@ require('lazy').setup({
   'mfussenegger/nvim-dap',
   'rcarriga/nvim-dap-ui',
   -- Lanaguge Assistance: Linting and Formatting
-  'mfussenegger/nvim-lint',
-  'mhartington/formatter.nvim',
+  'jose-elias-alvarez/null-ls.nvim',
+  'jay-babu/mason-null-ls.nvim',
   -- Language Assistance: Builtin Installer
   'williamboman/mason.nvim',
   'williamboman/mason-lspconfig.nvim',

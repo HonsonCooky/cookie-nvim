@@ -78,6 +78,8 @@ cmp.setup.cmdline(":", {
 
 --[[LSP]]
 require("mason").setup()
+require("mason-null-ls").setup({ handlers = {} })
+require("null-ls").setup()
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local mason_lspconfig = require("mason-lspconfig")
