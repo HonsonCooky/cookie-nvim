@@ -1,5 +1,13 @@
-require('nvim-autopairs').setup()
-require('Comment').setup()
+--[[
+Language Features, or 'intellisense', are the components that help speed up your typing and programming. Autocompletion,
+Language Servers, Treesitters, and Debuggers. By default, this configuration ONLY makes sure that your setup can handle
+Lua. As you encounter more and more programming languages, you can install more and more components when they become
+necessary. Mason is included to enable in-situ language server support. This is not drastically different from VSCode
+and other general purpose IDEs.
+]]
+
+require("nvim-autopairs").setup()
+require("Comment").setup()
 require("neodev").setup({
   library = { plugins = { "nvim-dap-ui" }, types = true },
 })
@@ -21,13 +29,13 @@ cmp.setup({
   snippet = {
     expand = function(args)
       require("luasnip").lsp_expand(args.body)
-    end
+    end,
   },
   mapping = cmp.mapping.preset.insert({
-    ['<CR>'] = cmp.mapping.confirm {
+    ["<CR>"] = cmp.mapping.confirm({
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
-    },
+    }),
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
@@ -56,25 +64,24 @@ cmp.setup({
     { name = "luasnip" },
     { name = "buffer" },
     { name = "path" },
-  })
+  }),
 })
 
 cmp.setup.cmdline({ "/", "?" }, {
   mapping = cmp.mapping.preset.cmdline(),
   sources = {
-    { name = "buffer" }
-  }
+    { name = "buffer" },
+  },
 })
 
 cmp.setup.cmdline(":", {
   mapping = cmp.mapping.preset.cmdline(),
   sources = cmp.config.sources({
-    { name = "path" }
+    { name = "path" },
   }, {
-    { name = "cmdline" }
-  })
+    { name = "cmdline" },
+  }),
 })
-
 
 --[[LSP]]
 require("mason").setup()
@@ -85,25 +92,24 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local mason_lspconfig = require("mason-lspconfig")
 
 mason_lspconfig.setup({
-  ensure_installed = { "lua_ls" }
+  ensure_installed = { "lua_ls" },
 })
 
 mason_lspconfig.setup_handlers({
   function(server_name)
-    require("lspconfig")[server_name].setup {
+    require("lspconfig")[server_name].setup({
       capabilities = capabilities,
-    }
-  end
+    })
+  end,
 })
 
 --[[TREESITTER]]
 require("nvim-treesitter.configs").setup({
-  autotag = { enable = true, },
+  autotag = { enable = true },
   ensure_installed = { "lua" },
   highlight = { enable = true },
   indent = { enable = true },
 })
-
 
 --[[DEBUGGING]]
 require("dapui").setup()
@@ -118,10 +124,9 @@ dap.listeners.before.event_exited["dapui_config"] = function()
   dapui.close()
 end
 
-
 --[[FORMAT ON SAVE]]
 vim.api.nvim_create_autocmd("BufWritePre", {
   callback = function()
     vim.lsp.buf.format()
-  end
+  end,
 })
