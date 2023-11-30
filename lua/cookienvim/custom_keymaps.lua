@@ -31,6 +31,7 @@ whichkey.register({
   ["<A-j>"] = { ":m .+1<CR>==", "Move Line Up" },
   ["<A-k>"] = { ":m .-2<CR>==", "Move Line Down" },
   J = { "mzJ`z", "Fancy Line Pull" },
+  K = { vim.lsp.buf.hover, "Hover" },
 
   -- UI Manipulations
   ["<C-.>"] = { Font_Increase, "Increase Font Size" },
@@ -40,13 +41,17 @@ whichkey.register({
     s = { Toggle_Spell_Check, "Toggle [S]pell Check" },
     w = { Toggle_Wrap, "Toggle Text [W]rap" },
   },
+}, { mode = "n", noremap = true })
 
-  -- Buffer Manipulations
-  ["<leader>w"] = { ":wa<CR>", "[W]rite All" },
-
-  -- File Management
-  ["<leader>e"] = { ":Neotree source=filesystem toggle=true position=right reveal=true<CR>", "File [E]xplorer" },
-  ["<leader>f"] = {
+whichkey.register({
+  e = { ":Neotree source=filesystem toggle=true position=right reveal=true<CR>", "File [E]xplorer" },
+  d = {
+    name = "[D]iagnostic",
+    f = { vim.diagnostic.open_float, "[F]loat" },
+    j = { vim.diagnostic.goto_next, "Next" },
+    k = { vim.diagnostic.goto_prev, "Previous" },
+  },
+  f = {
     name = "[F]ind",
     b = { telescope_builtin.buffers, "[B]uffers" },
     d = { telescope_builtin.diagnostics, "[D]iagnostics" },
@@ -57,39 +62,25 @@ whichkey.register({
     t = { telescope_builtin.live_grep, "[T]ext" },
     w = { telescope_builtin.grep_string, "[W]ord" },
   },
-  ["<leader>n"] = {
+  l = {
+    name = "[L]sp",
+    a = { vim.lsp.buf.code_action, "Code [A]ction" },
+    f = { vim.lsp.buf.format, "[F]ormat" },
+    r = { vim.lsp.buf.rename, "[R]ename" },
+    d = { telescope_builtin.lsp_definitions, "[D]efinition" },
+    i = { telescope_builtin.lsp_implementations, "[I]mplementation" },
+    R = { telescope_builtin.lsp_references, "[R]eferences" },
+    s = { telescope_builtin.lsp_document_symbols, "[S]ymbols" },
+    t = { telescope_builtin.lsp_type_definitions, "[T]ype Definition" },
+  },
+  n = {
     name = "[N]eo Tree",
     b = { ":Neotree source=buffers toggle=true position=right reveal=true<CR>", "[B]uffer Explorer" },
     g = { ":Neotree source=git_status toggle=true position=right reveal=true<CR>", "[G]it Status" },
     l = { ":Neotree source=last toggle=true position=right reveal=true<CR>", "[L]ast Source" },
   },
-
-  -- Language Assistance
-  K = { vim.lsp.buf.hover, "Hover" },
-  ["<leader>l"] = {
-    name = "[L]SP",
-    a = { vim.lsp.buf.code_action, "Code [A]ction" },
-    f = { vim.lsp.buf.format, "[F]ormat" },
-    r = { vim.lsp.buf.rename, "[R]ename" },
-  },
-  g = {
-    name = "[G]oto",
-    d = {
-      name = "[D]iagnostic",
-      f = { vim.diagnostic.open_float, "[F]loat" },
-      j = { vim.diagnostic.goto_next, "Next" },
-      k = { vim.diagnostic.goto_prev, "Previous" },
-    },
-    l = {
-      name = "[L]sp",
-      d = { telescope_builtin.lsp_definitions, "[D]efinition" },
-      i = { telescope_builtin.lsp_implementations, "[I]mplementation" },
-      r = { telescope_builtin.lsp_references, "[R]eferences" },
-      s = { telescope_builtin.lsp_document_symbols, "[S]ymbols" },
-      t = { telescope_builtin.lsp_type_definitions, "[T]ype Definition" },
-    },
-  },
-}, { mode = "n", noremap = true })
+  w = { ":wa<CR>", "[W]rite All" },
+}, { mode = "n", noremap = true, prefix = "<leader>" })
 
 --[[VISUAL MODE]]
 whichkey.register({
