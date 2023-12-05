@@ -92,7 +92,7 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local mason_lspconfig = require("mason-lspconfig")
 
 mason_lspconfig.setup({
-  ensure_installed = { "lua_ls" },
+  ensure_installed = { "clangd", "lua_ls", "rust-analyzer", "vim-language-server" },
 })
 
 mason_lspconfig.setup_handlers({
@@ -106,7 +106,7 @@ mason_lspconfig.setup_handlers({
 --[[TREESITTER]]
 require("nvim-treesitter.configs").setup({
   autotag = { enable = true },
-  ensure_installed = { "lua" },
+  ensure_installed = { "c", "lua", "query", "rust", "vim", "vimdoc" },
   highlight = { enable = true },
   indent = { enable = true },
 })
