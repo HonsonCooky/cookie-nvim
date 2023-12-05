@@ -54,15 +54,16 @@ require("lazy").setup({
   "rafamadriz/friendly-snippets",
   "L3MON4D3/LuaSnip",
   "saadparwaiz1/cmp_luasnip",
+  -- Language Assistance: Builtin Installer
+  "williamboman/mason.nvim",
+  "williamboman/mason-lspconfig.nvim",
   -- Language Assistance: Debugging
   "mfussenegger/nvim-dap",
+  "jay-babu/mason-nvim-dap.nvim",
   "rcarriga/nvim-dap-ui",
   -- Lanaguge Assistance: Linting and Formatting
   "jose-elias-alvarez/null-ls.nvim",
   "jay-babu/mason-null-ls.nvim",
-  -- Language Assistance: Builtin Installer
-  "williamboman/mason.nvim",
-  "williamboman/mason-lspconfig.nvim",
   -- Language Assistance: Treesitter
   "nvim-treesitter/nvim-treesitter",
   "nvim-treesitter/nvim-treesitter-context",

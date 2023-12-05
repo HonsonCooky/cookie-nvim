@@ -113,7 +113,9 @@ require("nvim-treesitter.configs").setup({
 
 --[[DEBUGGING]]
 require("dapui").setup()
-local dap, dapui = require("dap"), require("dapui")
+require("mason-nvim-dap").setup()
+local dap = require("dap")
+local dapui = require("dapui")
 dap.listeners.after.event_initialized["dapui_config"] = function()
   dapui.open()
 end
