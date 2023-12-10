@@ -54,7 +54,16 @@ require("lualine").setup({
 })
 
 --[[NeoTree]]
-require("neo-tree").setup()
+require("neo-tree").setup({
+  filesystem = {
+    filtered_items = {
+      visible = true,
+      always_show = {
+        ".gitignored",
+      },
+    },
+  },
+})
 
 --[[TeleScope]]
 local ts = require("telescope")
@@ -116,9 +125,5 @@ end
 function Toggle_Spell_Check()
   local buf = vim.api.nvim_get_current_buf()
   local new_val = not vim.api.nvim_get_option_value("spell", { buf = buf })
-  vim.api.nvim_set_option_value(
-    "spell",
-    new_val,
-    { buf = buf }
-  )
+  vim.api.nvim_set_option_value("spell", new_val, { buf = buf })
 end
