@@ -80,6 +80,7 @@ whichkey.register({
     g = { ":Neotree source=git_status toggle=true position=right reveal=true<CR>", "[G]it Status" },
     l = { ":Neotree source=last toggle=true position=right reveal=true<CR>", "[L]ast Source" },
   },
+  r = { ":e!", "[R]efresh" },
   w = { ":wa<CR>", "[W]rite All" },
 }, { mode = "n", noremap = true, prefix = "<leader>" })
 
