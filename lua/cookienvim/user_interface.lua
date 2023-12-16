@@ -46,10 +46,24 @@ font_setup()
 --[[LuaLine]]
 require("lualine").setup({
   sections = {
+    lualine_a = { "mode" },
+    lualine_b = { "branch" },
     lualine_c = {
-      "filename",
+      "diff",
+      "diagnostics",
       "lsp_progress",
     },
+    lualine_x = { "encoding", "fileformat", "filetype" },
+    lualine_y = { "progress" },
+    lualine_z = { "location" }
+  },
+  tabline = {
+    lualine_a = { "tabs" },
+    lualine_b = { "buffers" },
+    lualine_c = {},
+    lualine_x = {},
+    lualine_y = {},
+    lualine_z = {}
   },
 })
 
