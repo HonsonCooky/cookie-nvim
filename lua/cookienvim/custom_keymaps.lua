@@ -43,12 +43,13 @@ whichkey.register({
   },
 }, { mode = "n", noremap = true })
 
+
 whichkey.register({
   b = {
     name = "[B]uffer",
-    j = { ":bn<CR>", "Next" },
-    k = { ":bp<CR>", "Previous" },
-    l = { ":bd<CR>", "Delete" },
+    n = { ":bn<CR>", "[N]ext" },
+    p = { ":bp<CR>", "[P]revious" },
+    c = { ":bn<bar>sp<bar>bp<bar>bd<CR>", "[C]lose" },
   },
   e = { ":Neotree source=filesystem toggle=true position=right reveal=true<CR>", "File [E]xplorer" },
   d = {
