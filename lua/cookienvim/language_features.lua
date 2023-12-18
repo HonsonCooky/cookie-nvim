@@ -80,7 +80,6 @@ require("nvim-treesitter.configs").setup({
   autotag = { enable = true },
   ensure_installed = { "c", "lua", "query", "rust", "vim", "vimdoc" },
   highlight = { enable = true },
-  indent = { enable = true },
 })
 
 --[[DEBUGGING]]
