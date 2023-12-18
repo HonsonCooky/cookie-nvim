@@ -7,6 +7,7 @@ and other general purpose IDEs.
 ]]
 
 require("nvim-autopairs").setup()
+require("nvim-ts-autotag").setup()
 require("Comment").setup()
 require("neodev").setup({
   library = { plugins = { "nvim-dap-ui" }, types = true },

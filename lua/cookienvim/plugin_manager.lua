@@ -22,6 +22,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   --[[Basic Assistance]]
   "windwp/nvim-autopairs",
+  "windwp/nvim-ts-autotag",
   "numToStr/Comment.nvim",
   "folke/which-key.nvim",
 
