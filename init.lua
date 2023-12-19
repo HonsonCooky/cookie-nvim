@@ -12,5 +12,5 @@ require("cookienvim.language_features") -- Setup LSP, Auto Completion, Formatter
 require("cookienvim.custom_keymaps")    -- Keymaps for everything above
 
 --[[Source Repository Starting Location]]
-local source_repo_loc = os.getenv("UserProfile") .. "/source"
+local source_repo_loc = vim.fn.expand('$HOME') .. "/source"
 vim.cmd("cd " .. source_repo_loc)
