@@ -65,7 +65,7 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local mason_lspconfig = require("mason-lspconfig")
 
 mason_lspconfig.setup({
-  ensure_installed = { "clangd", "lua_ls", "rust-analyzer", "vimls" },
+  ensure_installed = { "clangd", "lua_ls", "rust_analyzer", "vimls" },
 })
 
 mason_lspconfig.setup_handlers({
