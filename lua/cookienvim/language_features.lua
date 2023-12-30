@@ -58,16 +58,13 @@ cmp.setup.cmdline(":", {
 
 --[[LSP]]
 require("mason").setup()
-require("mason-null-ls").setup({ handlers = {} })
-require("null-ls").setup()
 
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local mason_lspconfig = require("mason-lspconfig")
-
 mason_lspconfig.setup({
-  ensure_installed = { "clangd", "lua_ls", "rust_analyzer", "vimls" },
+  ensure_installed = { "clangd", "lua_ls", "vimls" },
 })
 
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 mason_lspconfig.setup_handlers({
   function(server_name)
     require("lspconfig")[server_name].setup({
@@ -79,7 +76,7 @@ mason_lspconfig.setup_handlers({
 --[[TREESITTER]]
 require("nvim-treesitter.configs").setup({
   autotag = { enable = true },
-  ensure_installed = { "c", "lua", "query", "rust", "vim", "vimdoc" },
+  ensure_installed = { "c", "lua", "query", "vim", "vimdoc" },
   highlight = { enable = true },
 })
 
