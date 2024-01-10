@@ -62,6 +62,9 @@ require("lazy").setup({
   "mfussenegger/nvim-dap",
   "jay-babu/mason-nvim-dap.nvim",
   "rcarriga/nvim-dap-ui",
+  -- Lanaguge Assistance: Linting and Formatting
+  "nvimtools/none-ls.nvim",
+  "jay-babu/mason-null-ls.nvim",
   -- Language Assistance: Treesitter
   "nvim-treesitter/nvim-treesitter",
   "nvim-treesitter/nvim-treesitter-context",

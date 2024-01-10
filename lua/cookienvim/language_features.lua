@@ -58,10 +58,25 @@ cmp.setup.cmdline(":", {
 
 --[[LSP]]
 require("mason").setup()
+require("mason-null-ls").setup()
+local null_ls = require("null-ls")
+local formatting = null_ls.builtins.formatting
+
+null_ls.setup({
+  sources = {
+    formatting.clang_format,  -- C++
+    formatting.cmake_format,  -- CMake
+    formatting.csharpier,     -- C#
+    formatting.prettier,      -- TypeScript, React
+    formatting.stylua,        -- Lua
+    formatting.terraform_fmt, -- Terraform
+    formatting.yamlfmt,       -- Yaml
+  }
+})
 
 local mason_lspconfig = require("mason-lspconfig")
 mason_lspconfig.setup({
-  ensure_installed = { "clangd", "lua_ls", "vimls" },
+  ensure_installed = { "clangd", "lua_ls", "rust_analyzer", "vimls" },
 })
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -76,7 +91,7 @@ mason_lspconfig.setup_handlers({
 --[[TREESITTER]]
 require("nvim-treesitter.configs").setup({
   autotag = { enable = true },
-  ensure_installed = { "c", "lua", "query", "vim", "vimdoc" },
+  ensure_installed = { "c", "lua", "query", "rust", "vim", "vimdoc" },
   highlight = { enable = true },
 })
 

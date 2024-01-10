@@ -137,7 +137,8 @@ function Toggle_Wrap()
 end
 
 function Toggle_Spell_Check()
+  local win = vim.api.nvim_get_current_win()
   local buf = vim.api.nvim_get_current_buf()
-  local new_val = not vim.api.nvim_get_option_value("spell", { buf = buf })
+  local new_val = not vim.api.nvim_get_option_value("spell", { win = win, buf = buf })
   vim.api.nvim_set_option_value("spell", new_val, { buf = buf })
 end

@@ -36,11 +36,6 @@ whichkey.register({
   -- UI Manipulations
   ["<C-.>"] = { Font_Increase, "Increase Font Size" },
   ["<C-,>"] = { Font_Decrease, "Decrease Font Size" },
-  ["<leader>u"] = {
-    name = "[U]ser Interface",
-    s = { Toggle_Spell_Check, "Toggle [S]pell Check" },
-    w = { Toggle_Wrap, "Toggle Text [W]rap" },
-  },
 }, { mode = "n", noremap = true })
 
 
@@ -88,6 +83,11 @@ whichkey.register({
     l = { ":Neotree source=last toggle=true position=right reveal=true<CR>", "[L]ast Source" },
   },
   r = { ":e!<CR>", "[R]efresh" },
+  u = {
+    name = "[U]ser Interface",
+    s = { Toggle_Spell_Check, "Toggle [S]pell Check" },
+    w = { Toggle_Wrap, "Toggle Text [W]rap" },
+  },
   w = { ":wa<CR>", "[W]rite All" },
 }, { mode = "n", noremap = true, prefix = "<leader>" })
 
