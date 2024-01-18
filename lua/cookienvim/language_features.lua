@@ -58,21 +58,6 @@ cmp.setup.cmdline(":", {
 
 --[[LSP]]
 require("mason").setup()
-require("mason-null-ls").setup()
-local null_ls = require("null-ls")
-local formatting = null_ls.builtins.formatting
-
-null_ls.setup({
-  sources = {
-    formatting.clang_format,  -- C++
-    formatting.cmake_format,  -- CMake
-    formatting.csharpier,     -- C#
-    formatting.prettier,      -- TypeScript, React
-    formatting.stylua,        -- Lua
-    formatting.terraform_fmt, -- Terraform
-    formatting.yamlfmt,       -- Yaml
-  }
-})
 
 local mason_lspconfig = require("mason-lspconfig")
 mason_lspconfig.setup({
@@ -87,6 +72,22 @@ mason_lspconfig.setup_handlers({
     })
   end,
 })
+
+local null_ls = require("null-ls")
+local formatting = null_ls.builtins.formatting
+
+null_ls.setup({
+  sources = {
+    formatting.clang_format, -- C++
+    formatting.cmake_format, -- CMake
+    formatting.csharpier,   -- C#
+    formatting.prettier,    -- HTML, JS/TS, CSS
+    formatting.stylua,      -- Lua
+    formatting.terraform_fmt, -- Terraform
+    formatting.yamlfmt,     -- Yaml
+  },
+})
+require("mason-null-ls").setup()
 
 --[[TREESITTER]]
 require("nvim-treesitter.configs").setup({
