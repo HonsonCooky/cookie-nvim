@@ -112,8 +112,14 @@ dap.listeners.before.event_exited["dapui_config"] = function()
 end
 
 --[[FORMAT ON SAVE]]
+ShouldFormat = true
 vim.api.nvim_create_autocmd("BufWritePre", {
   callback = function()
-    vim.lsp.buf.format()
+    if ShouldFormat then
+      vim.lsp.buf.format()
+    end
   end,
 })
+
+--[[ALIGNMENT ASSISTANCE]]
+require("mini.align").setup()

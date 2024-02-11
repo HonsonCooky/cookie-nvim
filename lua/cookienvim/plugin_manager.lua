@@ -46,6 +46,7 @@ require("lazy").setup({
   --[[Language Assistance]]
   "neovim/nvim-lspconfig",
   "folke/neodev.nvim",
+  "echasnovski/mini.nvim",
   -- Language Assistance: AutoCompletion
   "hrsh7th/nvim-cmp",
   "hrsh7th/cmp-nvim-lsp",
