@@ -9,7 +9,7 @@ Welcome to the CookieNvim; A Personal Development Environment (PDE) Neovim confi
 This Neovim configuration is designed around three key concepts:
 
 - **_Static UI_**: The following diagram demonstrates the UI layout. Both the `File Manager` and `Terminal` are
-  extension windows that can be toggled with keyboard shortcuts. Version 1 of my configuration attempted to
+  extension windows that can be toggled with keyboard shortcuts. Version 1.0.0 of my configuration attempted to
   overcomplicate this design, with additional information and layouts. However, I know how I operate, and the following
   design allows for me to access the information I need, when I need it, without making large distractions from my code
   in the middle.
@@ -66,3 +66,29 @@ This Neovim configuration is designed around three key concepts:
   of languages I would like to setup. This is mostly due to either their link to my Neovim setup (thus, if I need to
   make changes, I should be able to do so anywhere), or their likelihood to be a pre-existing language on a device
   (Linux comes with C and Rust).
+
+## Windows First Thinking
+
+As a working developer, my work operating system is not something I have a large amount of control over. Often, large
+companies opt to utilize Windows for the administrative control that enables a security team to ensure company data and
+systems are not hacked. In version 1.0.0 of this configuration, I attempted to setup some common command line
+instructions to key bindings, as a means of saving time. However, this endeavour ultimately created issues when I
+switched to a Linux environment.
+
+Furthermore, version 1.0.0 of this configuration also attempted to create some installation scripts, that would ensure
+tools are installed for my configuration to work. Ultimately, this was incredibly hard to manage and maintain across
+multiple OSs as my toolkit changed and updated.
+
+My thinking in this space changed, where previously I had thought of my Neovim configuration being the center component
+to my OS; Now it's an accessory to my system. In another GitHub [repo](https://github.com/honsonCooky/dotfiles), I have
+dedicated scripts and files that are essential to recreating my ideal setup. The OS centric view now treats this Neovim
+configuration as an accessory to the OS, rather than the configuration being the center of my setup.
+
+This change in thinking is replicated in my configuration, where it is assumed that the tools necessary for the
+configuration to work, are already installed. There are no checks or additional logic that ensure the configuration will
+work.
+
+Overall, this new view on my configuration has simplified this setup, and also allowed my CLI skill set to vastly
+improve. Where previously I might have searched up how to X in Bash and PowerShell; Immediately implemented a key
+binding to do this. I'm now forced to learn these tools in full, which only goes to further my abilities as a Software
+Engineer.
