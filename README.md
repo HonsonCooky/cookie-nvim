@@ -89,6 +89,7 @@ configuration to work, are already installed. There are no checks or additional 
 work.
 
 Overall, this new view on my configuration has simplified this setup, and also allowed my CLI skill set to vastly
-improve. Where previously I might have searched up how to X in Bash and PowerShell; Immediately implemented a key
-binding to do this. I'm now forced to learn these tools in full, which only goes to further my abilities as a Software
-Engineer.
+improve. Where previously I might have searched up how to X in Bash / PowerShell, and then immediately implemented a key
+binding to do this for me. I'm now forced to learn these tools in full, which only goes to further my abilities as a
+Software Engineer. The simplification of my setup has enabled it to also be OS independant, which makes it a
+cross-platform tool simply because I'm not attemtping to do anything too fancy.
