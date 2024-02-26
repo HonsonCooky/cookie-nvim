@@ -42,7 +42,8 @@ This Neovim configuration is designed around three key concepts:
 
   - `./lua/cookienvim/plugin_manager.lua`: I use `lazy.nvim` as my Neovim plugin manager. I don't utilize any of the
     "lazy" features, I just find it the easiest to setup and use. This file DOES NOT setup any of the plugins, rather,
-    it lists them all out in an easy to read manner. Code comments are used to identify sections and concepts.
+    it lists them all out (to be downloaded on startup) in an easy to read manner. Code comments are used to identify
+    sections and concepts.
 
   - `./lua/cookienvim/user_interface.lua`: There are several tools that can exist under the "User Interface" category,
     and this is where they all are setup. The only requirement for a plugin to be considered a "User Interface"
