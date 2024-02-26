@@ -74,8 +74,9 @@ This Neovim configuration is designed around four key concepts:
   focused on providing the bare minimum that I actually need. To figure this out, I created a configuration with a
   minimal language assistance setup and tried to program. I quickly learnt which tools were critical for me, and which
   tools were okay to replace with CLI commands. Thus, I've found my personal minimalist build; The bare minimum I need
-  to work efficiently within Neovim. Everything else is a CLI command that I just need to learn. By forcing myself into
-  the CLI, I learn how to use these tools better.
+  to work efficiently within Neovim. In cases where I'm missing functionality from my PDE, I turn to CLI tools first,
+  before attempting to fix my issues with extensions. By proxy, this has made me a lot more efficient with Git, RipGrep
+  and many other CLI tools that I previously had a plugin to manage for me.
 
 ## Windows First Thinking
 
