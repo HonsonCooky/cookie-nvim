@@ -6,7 +6,7 @@ Welcome to the CookieNvim; A Personal Development Environment (PDE) Neovim confi
 
 ## Design
 
-This Neovim configuration is designed around three key concepts:
+This Neovim configuration is designed around four key concepts:
 
 - **_Static UI_**: The following diagram demonstrates the UI layout. Both the `File Manager` and `Terminal` are
   extension windows that can be toggled with keyboard shortcuts. Version 1.0.0 of my configuration attempted to
@@ -46,14 +46,14 @@ This Neovim configuration is designed around three key concepts:
     sections and concepts.
 
   - `./lua/cookienvim/user_interface.lua`: There are several tools that can exist under the "User Interface" category,
-    and this is where they all are setup. The only requirement for a plugin to be considered a "User Interface"
-    feature, it that it's designed to show the user (me) some information in a nicer way. Color schemes and fonts are
-    faily obvious choices for this category, but it also includes the File Manager, Terminal and RipGrep search tools
-    that all provide some element to my user interface that is purely for providing extra information. LSPs could
+    and this is where they all are setup. The only requirement for a plugin to be considered a "User Interface" feature,
+    it that it's designed to show the user (me) some information in a nicer way. Color schemes and fonts are faily
+    obvious choices for this category, but it also includes the File Manager, Terminal and RipGrep search tools that all
+    provide some element to my user interface that provides extra information and means for interation. LSPs could
     technically go in this category, but I've put language features in their section due to their complicated nature.
 
-  - `./lua/cookienvim/vim_setup.lua`: Vim as a tool (and Neovim by extension) comes with many settings and variables
-    that can be altered to customize your experience. In this file, those settings are setup. Fairly simple.
+  - `./lua/cookienvim/vim_setup.lua`: Vim as a tool (and Neovim by extension) comes with many settings and global
+    variables that can be altered to customize your experience. In this file, those settings are setup.
 
   - `./init.lua`: Typically, this file is only used to reference some internal `init.lua` inside your config; But Why?
     This isn't a plugin, it's a configuration. So, given this is the starting point for your Neovim setup, there's no
@@ -67,6 +67,15 @@ This Neovim configuration is designed around three key concepts:
   of languages I would like to setup. This is mostly due to either their link to my Neovim setup (thus, if I need to
   make changes, I should be able to do so anywhere), or their likelihood to be a pre-existing language on a device
   (Linux comes with C and Rust).
+
+- **_Minimal Tools_**: Neovim is highly configurable, and the community has created so many amazing different extensions
+  that's it easy to keep adding more and more to your setup. My first configuration was greedy; A complicated web of
+  plugins that made learning and maintaining my setup so much more difficult. For this version of my configuration, I've
+  focused on providing the bare minimum that I actually need. To figure this out, I created a configuration with a
+  minimal language assistance setup and tried to program. I quickly learnt which tools were critical for me, and which
+  tools were okay to replace with CLI commands. Thus, I've found my personal minimalist build; The bare minimum I need
+  to work efficiently within Neovim. Everything else is a CLI command that I just need to learn. By forcing myself into
+  the CLI, I learn how to use these tools better.
 
 ## Windows First Thinking
 
