@@ -73,7 +73,12 @@ whichkey.register({
   l = {
     name = "[L]sp",
     a = { vim.lsp.buf.code_action, "Code [A]ction" },
-    f = { vim.lsp.buf.format, "[F]ormat" },
+    f = {
+      function()
+        vim.lsp.buf.format({ timeout_ms = 5000 })
+      end,
+      "[F]ormat",
+    },
     r = { vim.lsp.buf.rename, "[R]ename" },
     d = { telescope_builtin.lsp_definitions, "[D]efinition" },
     i = { telescope_builtin.lsp_implementations, "[I]mplementation" },
@@ -99,7 +104,8 @@ whichkey.register({
       ShouldFormat = false
       vim.cmd("wa")
       ShouldFormat = true
-    end, "[S]ave without formatting"
+    end,
+    "[S]ave without formatting",
   },
 }, { mode = "n", noremap = true, prefix = "<leader>" })
 
