@@ -21,7 +21,7 @@ require("auto-dark-mode").setup({
 
 --[[Fonts]]
 local font_family = "JetBrainsMono NFM"
-local font_size = 14
+local font_size = 16
 local max_size = 20
 local min_size = 4
 
