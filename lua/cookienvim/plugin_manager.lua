@@ -59,10 +59,6 @@ require("lazy").setup({
   -- Language Assistance: Builtin Installer
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
-  -- Language Assistance: Debugging
-  "mfussenegger/nvim-dap",
-  "jay-babu/mason-nvim-dap.nvim",
-  "rcarriga/nvim-dap-ui",
   -- Lanaguge Assistance: Linting and Formatting
   "nvimtools/none-ls.nvim",
   "jay-babu/mason-null-ls.nvim",
