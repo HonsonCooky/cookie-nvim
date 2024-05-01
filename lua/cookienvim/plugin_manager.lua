@@ -70,7 +70,8 @@ require("lazy").setup({
 
   --[[User Interface]]
   "f-person/auto-dark-mode.nvim",
-  "catppuccin/nvim",
+  -- "catppuccin/nvim",
+  "rose-pine/neovim",
   "nvim-lualine/lualine.nvim",
   "arkav/lualine-lsp-progress",
   "akinsho/toggleterm.nvim",
