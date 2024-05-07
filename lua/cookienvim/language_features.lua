@@ -77,6 +77,7 @@ mason_lspconfig.setup_handlers({
 
 local null_ls = require("null-ls")
 local formatting = null_ls.builtins.formatting
+local diagnostics = null_ls.builtins.diagnostics
 
 null_ls.setup({
   sources = {
@@ -87,6 +88,8 @@ null_ls.setup({
     formatting.stylua,      -- Lua
     formatting.terraform_fmt, -- Terraform
     formatting.yamlfmt,     -- Yaml
+    diagnostics.textidote,  -- LaTeX
+    diagnostics.textlint,   -- Markdown & Text
   },
 })
 require("mason-null-ls").setup()
