@@ -6,6 +6,7 @@ to with it's default configuration.
 
 local whichkey = require("which-key")
 local telescope_builtin = require("telescope.builtin")
+local telescope_file_browser = require("telescope").extensions.file_browser
 
 whichkey.setup()
 
@@ -47,6 +48,7 @@ whichkey.register({
 		j = { vim.diagnostic.goto_next, "Next" },
 		k = { vim.diagnostic.goto_prev, "Previous" },
 	},
+	e = { telescope_file_browser.file_browser, "File Browser" },
 	f = {
 		name = "[F]ind",
 		b = { telescope_builtin.buffers, "[B]uffers" },

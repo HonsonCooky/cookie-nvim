@@ -66,9 +66,15 @@ ts.setup({
 			preview_cutoff = 120,
 		},
 	},
+	extensions = {
+		file_browser = {
+			hijack_netrw = true,
+		},
+	},
 })
-pcall(ts.load_extension, "fzf")
-pcall(ts.load_extension, "ui-select")
+ts.load_extension("fzf")
+ts.load_extension("file_browser", { previewer = false })
+ts.load_extension("ui-select")
 
 --[[Visual Aid]]
 function Toggle_Wrap()
