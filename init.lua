@@ -26,7 +26,7 @@ vim.opt.signcolumn = "yes"
 -- vim.opt.updatetime = 250
 
 -- 	Time in milliseconds to wait for a mapped sequence to complete.
--- vim.opt.timeoutlen = 300
+vim.opt.timeoutlen = 100
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = "split"
@@ -270,7 +270,9 @@ require("lazy").setup({
     -- [[Autoformat]]
     {
         "stevearc/conform.nvim",
-        "LittleEndianRoot/mason-conform",
+        dependencies = {
+            "LittleEndianRoot/mason-conform",
+        },
         lazy = false,
         keys = {
             {
@@ -292,19 +294,7 @@ require("lazy").setup({
             end,
         },
         config = function()
-            require("mason-conform").setup({
-                ensure_installed = {
-                    "clang_format",
-                    "cmake_format",
-                    "csharpier",
-                    "markdown-toc",
-                    "markdownlint",
-                    "prettier",
-                    "stylua",
-                    "terraform_fmt",
-                    "yamlfmt",
-                },
-            })
+            require("mason-conform").setup()
         end
     },
     --[[Autocompletion]]
@@ -431,4 +421,12 @@ require("lazy").setup({
             require("nvim-treesitter.configs").setup(opts)
         end,
     },
+    --[[ColorScheme]]
+    {
+        "rose-pine/neovim",
+        name = "rose-pine",
+        config = function()
+            vim.cmd.colorscheme("rose-pine")
+        end
+    }
 })
