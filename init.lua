@@ -270,9 +270,7 @@ require("lazy").setup({
     -- [[Autoformat]]
     {
         "stevearc/conform.nvim",
-        dependencies = {
-            "LittleEndianRoot/mason-conform",
-        },
+        "LittleEndianRoot/mason-conform",
         lazy = false,
         keys = {
             {
