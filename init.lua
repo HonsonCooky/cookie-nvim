@@ -63,6 +63,8 @@ if not vim.loop.fs_stat(lazypath) then
     local lazyrepo = "https://github.com/folke/lazy.nvim.git"
     vim.fn.system { "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath }
 end
+
+---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
 -- [[ Configure and install plugins ]]
@@ -70,6 +72,7 @@ require("lazy").setup({
     "tpope/vim-sleuth",
     { "numToStr/Comment.nvim",   config = true },
     { "lewis6991/gitsigns.nvim", config = true },
+    { "windwp/nvim-autopairs",   "windwp/nvim-ts-autotag", config = true },
     --[[Which-Key]]
     {
         "folke/which-key.nvim",
@@ -111,6 +114,9 @@ require("lazy").setup({
         },
         config = function()
             require("telescope").setup({
+                defaults = {
+                    initial_mode = "normal",
+                },
                 extensions = {
                     ["ui-select"] = {
                         require("telescope.themes").get_dropdown(),
@@ -429,5 +435,19 @@ require("lazy").setup({
             require("rose-pine").setup({ styles = { italic = false } })
             vim.cmd.colorscheme("rose-pine")
         end
+    },
+    {
+        "f-person/auto-dark-mode.nvim",
+        opts = {
+            update_interval = 1000,
+            set_dark_mode = function()
+                vim.o.background = "dark"
+                vim.cmd("mode")
+            end,
+            set_light_mode = function()
+                vim.o.background = "light"
+                vim.cmd("mode")
+            end,
+        }
     }
 })
