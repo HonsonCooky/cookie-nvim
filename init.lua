@@ -81,7 +81,7 @@ vim.opt.rtp:prepend(lazypath)
 -- [[ Configure and install plugins ]]
 require("lazy").setup({
 	"tpope/vim-sleuth",
-	{ "numToStr/Comment.nvim", config = true },
+	{ "numToStr/Comment.nvim",   config = true },
 	{ "lewis6991/gitsigns.nvim", config = true },
 	{
 		"windwp/nvim-autopairs",
@@ -186,8 +186,8 @@ require("lazy").setup({
 			{ "williamboman/mason.nvim", config = true },
 			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
-			{ "j-hui/fidget.nvim", opts = {} },
-			{ "folke/neodev.nvim", opts = {} },
+			{ "j-hui/fidget.nvim",       opts = {} },
+			{ "folke/neodev.nvim",       opts = {} },
 		},
 		config = function()
 			vim.api.nvim_create_autocmd("LspAttach", {
@@ -311,14 +311,14 @@ require("lazy").setup({
 					formatting.cmake_format, -- CMake
 					formatting.csharpier, -- C#
 					formatting.prettier, -- HTML, JS/TS, CSS
-					formatting.stylua, -- Lua
+					formatting.stylua,   -- Lua
 					formatting.terraform_fmt, -- Terraform
-					formatting.yamlfmt, -- Yaml
+					formatting.yamlfmt,  -- Yaml
 				},
 				on_attach = function(client, bufnr)
 					vim.keymap.set("n", "<leader>f", function()
 						if client.supports_method("textDocument/formatting") then
-							vim.lsp.buf.format({ async = false })
+							vim.lsp.buf.format({ async = false, timeout_ms = 5000 })
 						end
 					end, { desc = "[F]ormat current buffer" })
 
@@ -328,7 +328,7 @@ require("lazy").setup({
 							group = augroup,
 							buffer = bufnr,
 							callback = function()
-								vim.lsp.buf.format({ async = false })
+								vim.lsp.buf.format({ async = false, timeout_ms = 5000 })
 							end,
 						})
 					end
