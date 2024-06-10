@@ -382,18 +382,17 @@ require("lazy").setup({
 				completion = { completeopt = "menu,menuone,noinsert" },
 				mapping = cmp.mapping.preset.insert({
 					-- Select the [n]ext item
-					["<C-n>"] = cmp.mapping.select_next_item(),
+					["<Tab>"] = cmp.mapping.select_next_item(),
 					-- Select the [p]revious item
-					["<C-p>"] = cmp.mapping.select_prev_item(),
+					["<S-Tab>"] = cmp.mapping.select_prev_item(),
+					-- Accept ([y]es) the completion.
+					--  This will auto-import if your LSP supports it.
+					--  This will expand snippets if the LSP sent a snippet.
+					["<CR>"] = cmp.mapping.confirm({ select = true }),
 
 					-- Scroll the documentation window [b]ack / [f]orward
 					["<C-b>"] = cmp.mapping.scroll_docs(-4),
 					["<C-f>"] = cmp.mapping.scroll_docs(4),
-
-					-- Accept ([y]es) the completion.
-					--  This will auto-import if your LSP supports it.
-					--  This will expand snippets if the LSP sent a snippet.
-					["<C-y>"] = cmp.mapping.confirm({ select = true }),
 
 					-- Manually trigger a completion from nvim-cmp.
 					["<C-Space>"] = cmp.mapping.complete({}),
