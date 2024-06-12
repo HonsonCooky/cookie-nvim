@@ -60,6 +60,8 @@ vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper win
 -- Line Manipulations
 vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { desc = "Move line up" })
 vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", { desc = "Move line down" })
+vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move line up" })
+vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move line down" })
 
 -- Highlight when yanking (copying) text
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -74,7 +76,8 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 if string.find(string.lower(vim.loop.os_uname().sysname), "windows") ~= nil then -- If Windows.OS
 	local powershell_options = {
 		shell = vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell",
-		shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
+		shellcmdflag =
+		"-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
 		shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait",
 		shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode",
 		shellquote = "",
@@ -99,7 +102,7 @@ vim.opt.rtp:prepend(lazypath)
 -- [[ Configure and install plugins ]]
 require("lazy").setup({
 	"tpope/vim-sleuth",
-	{ "numToStr/Comment.nvim", config = true },
+	{ "numToStr/Comment.nvim",   config = true },
 	{ "lewis6991/gitsigns.nvim", config = true },
 	{
 		"windwp/nvim-autopairs",
@@ -204,8 +207,8 @@ require("lazy").setup({
 			{ "williamboman/mason.nvim", config = true },
 			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
-			{ "j-hui/fidget.nvim", opts = {} },
-			{ "folke/neodev.nvim", opts = {} },
+			{ "j-hui/fidget.nvim",       opts = {} },
+			{ "folke/neodev.nvim",       opts = {} },
 		},
 		config = function()
 			vim.api.nvim_create_autocmd("LspAttach", {
@@ -329,9 +332,9 @@ require("lazy").setup({
 					formatting.cmake_format, -- CMake
 					formatting.csharpier, -- C#
 					formatting.prettier, -- HTML, JS/TS, CSS
-					formatting.stylua, -- Lua
+					formatting.stylua,   -- Lua
 					formatting.terraform_fmt, -- Terraform
-					formatting.yamlfmt, -- Yaml
+					formatting.yamlfmt,  -- Yaml
 				},
 				on_attach = function(client, bufnr)
 					vim.keymap.set("n", "<leader>f", function()
