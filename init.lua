@@ -195,6 +195,7 @@ require("Comment").setup()
 require("gitsigns").setup()
 require("nvim-autopairs").setup()
 require("nvim-ts-autotag").setup()
+require("todo-comments").setup({ signs = false })
 
 --[[
 LANGUAGE SERVER SETUP
@@ -226,6 +227,36 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			})
 		end
 	end,
+})
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+require("mason").setup()
+require("mason-tool-installer").setup({
+	ensure_installed = {
+		"clangd",
+		"csharp_ls",
+		"cmake",
+		"cssls",
+		"html",
+		"jsonls",
+		"lua_ls",
+		"marksman",
+		"rust_analyzer",
+		"terraformls",
+		"tsserver",
+		"vimls",
+		"yamlls",
+	},
+})
+require("mason-lspconfig").setup({
+	handlers = {
+		function(server_name)
+			require("lspconfig")[server_name].setup({
+				capabilities = capabilities,
+			})
+		end,
+	},
 })
 
 --[[
@@ -262,38 +293,46 @@ require("nvim-treesitter.configs").setup({
 --[[
 AUTO COMPLETE
 ]]
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-require("mason").setup()
-require("mason-tool-installer").setup({
-	ensure_installed = {
-		"clangd",
-		"csharp_ls",
-		"cmake",
-		"cssls",
-		"html",
-		"jsonls",
-		"lua_ls",
-		"marksman",
-		"rust_analyzer",
-		"terraformls",
-		"tsserver",
-		"vimls",
-		"yamlls",
-	},
-})
-require("mason-lspconfig").setup({
-	handlers = {
-		function(server_name)
-			require("lspconfig")[server_name].setup({
-				capabilities = capabilities,
-			})
+require("luasnip.loaders.from_vscode").lazy_load()
+local cmp = require("cmp")
+local luasnip = require("luasnip")
+luasnip.config.setup()
+
+cmp.setup({
+	snippet = {
+		expand = function(args)
+			luasnip.lsp_expand(args.body)
 		end,
+	},
+	completion = { completeopt = "menu,menuone,noinsert" },
+	mapping = cmp.mapping.preset.insert({
+		["<Tab>"] = cmp.mapping.select_next_item(),
+		["<S-Tab>"] = cmp.mapping.select_prev_item(),
+		["<CR>"] = cmp.mapping.confirm({ select = true }),
+		["<C-b>"] = cmp.mapping.scroll_docs(-4),
+		["<C-f>"] = cmp.mapping.scroll_docs(4),
+		["<C-Space>"] = cmp.mapping.complete({}),
+		["<C-l>"] = cmp.mapping(function()
+			if luasnip.expand_or_locally_jumpable() then
+				luasnip.expand_or_jump()
+			end
+		end, { "i", "s" }),
+		["<C-h>"] = cmp.mapping(function()
+			if luasnip.locally_jumpable(-1) then
+				luasnip.jump(-1)
+			end
+		end, { "i", "s" }),
+	}),
+	sources = {
+		{ name = "nvim_lsp" },
+		{ name = "luasnip" },
+		{ name = "buffer" },
+		{ name = "path" },
 	},
 })
 
 --[[
-AUTO FORMAT
+FORMAT
 ]]
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 local null_ls = require("null-ls")
@@ -310,12 +349,6 @@ null_ls.setup({
 		formatting.yamlfmt, -- Yaml
 	},
 	on_attach = function(client, bufnr)
-		vim.keymap.set("n", "<leader>f", function()
-			if client.supports_method("textDocument/formatting") then
-				vim.lsp.buf.format({ async = false, timeout_ms = 5000 })
-			end
-		end, { desc = "[F]ormat current buffer" })
-
 		if client.supports_method("textDocument/formatting") then
 			vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
 			vim.api.nvim_create_autocmd("BufWritePre", {
@@ -375,6 +408,8 @@ require("auto-dark-mode").setup({
 WHICH KEY
 ]]
 require("which-key").setup()
+local telescope_builtin = require("telescope.builtin")
+local telescope_themes = require("telescope.themes")
 
 -- NORMAL
 require("which-key").register({
@@ -406,12 +441,85 @@ require("which-key").register({
 		k = { vim.diagnostic.goto_prev, "Prev" },
 		q = { vim.diagnostic.setloclist, "[Q]uickfix List" },
 	},
+
+	-- LSP
+	g = {
+		name = "LSP",
+		d = { telescope_builtin.lsp_definitions, "[D]efinition" },
+		D = { vim.lsp.buf.declaration, "[D]eclaration" },
+		r = { telescope_builtin.lsp_references, "[R]eferences" },
+		I = { telescope_builtin.lsp_implementations, "[I]mplementation" },
+	},
 }, { mode = "n", noremap = true })
 
 -- LEADER NORMAL
 require("which-key").register({
 	w = { "<cmd>wa<CR>", "Save All" },
 	e = { "<cmd>NvimTreeToggle<CR>", "File Explorer" },
+
+	-- Search
+	["<leader>"] = { telescope_builtin.buffers, "Open Buffers" },
+	s = {
+		name = "[S]earch",
+		["."] = { telescope_builtin.oldfiles, "Recent" },
+		d = { telescope_builtin.diagnostics, "[D]iagnositcs" },
+		f = { telescope_builtin.find_files, "[F]ind Files" },
+		g = { telescope_builtin.grep_string, "[G]rep" },
+		h = { telescope_builtin.help_tags, "[H]elp" },
+		k = { telescope_builtin.keymaps, "[K]eymaps" },
+		r = { telescope_builtin.resume, "[R]esume" },
+		s = { telescope_builtin.builtin, "[S]elect Tool" },
+
+		-- Neovim
+		n = {
+			function()
+				telescope_builtin.find_files({ cwd = vim.fn.stdpath("config") })
+			end,
+			"[N]eovim files",
+		},
+
+		-- Grep Files
+		["/"] = {
+			function()
+				telescope_builtin.live_grep({
+					grep_open_files = true,
+					prompt_title = "Live Grep in Open Files",
+				})
+			end,
+			"Fuzzily search open files",
+		},
+	},
+
+	-- Grep Buffer
+	["/"] = {
+		function()
+			telescope_builtin.current_buffer_fuzzy_find(telescope_themes.get_dropdown({
+				winblend = 10,
+				previewer = false,
+			}))
+		end,
+		"Fuzzily search current buffer",
+	},
+
+	-- LSP
+	l = {
+		name = "LSP",
+		a = { vim.lsp.buf.code_action, "[C]ode [A]ction" },
+		d = { telescope_builtin.lsp_type_definitions, "[D]efinitions" },
+		D = { telescope_builtin.lsp_document_symbols, "[D]ocument Symbols" },
+		r = { vim.lsp.buf.rename, "[R]ename" },
+		s = { telescope_builtin.lsp_dynamic_workspace_symbols, "Workspace [S]ymbols" },
+	},
+
+	-- Formatting
+	f = {
+		function()
+			if client.supports_method("textDocument/formatting") then
+				vim.lsp.buf.format({ async = false, timeout_ms = 5000 })
+			end
+		end,
+		"[F]ormat",
+	},
 }, { mode = "n", prefix = "<leader>" })
 
 -- VISUAL
