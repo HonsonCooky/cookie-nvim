@@ -189,27 +189,6 @@ if string.find(string.lower(vim.loop.os_uname().sysname), "windows") ~= nil then
 end
 
 --[[
-VIM SETUP
-]]
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.clipboard = "unnamedplus"
-vim.opt.breakindent = true
-vim.opt.undofile = true
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.signcolumn = "yes"
-vim.opt.timeoutlen = 100
-vim.opt.inccommand = "split"
-vim.opt.cursorline = true
-vim.opt.scrolloff = 20
-vim.opt.hlsearch = true
-
---[[
 SIMPLE SETUPS
 ]]
 require("Comment").setup()
@@ -352,6 +331,16 @@ null_ls.setup({
 require("mason-null-ls").setup()
 
 --[[
+NVIM TREE
+]]
+require("nvim-tree").setup({
+	sync_root_with_cwd = true,
+	view = {
+		side = "right",
+	},
+})
+
+--[[
 TELESCOPE
 ]]
 require("telescope").setup({
@@ -386,17 +375,44 @@ require("auto-dark-mode").setup({
 WHICH KEY
 ]]
 require("which-key").setup()
+
+-- NORMAL
 require("which-key").register({
+	["<Esc>"] = { "<cmd>nohlsearch<CR>", "Remove highlights" },
+
+	-- Navigation
+	["<C-h>"] = { "<C-w>h", "Jump To Windows LEFT" },
+	["<C-j>"] = { "<C-w>j", "Jump To Windows DOWN" },
+	["<C-k>"] = { "<C-w>k", "Jump To Windows UP" },
+	["<C-l>"] = { "<C-w>l", "Jump To Windows RIGHT" },
+
+	-- Window manipulations
+	["<C-Up>"] = { ":resize +2<CR>", "Window Increase Height" },
+	["<C-Down>"] = { ":resize -2<CR>", "Window Decrease Height" },
+	["<C-Left>"] = { ":vertical resize -2<CR>", "Window Decrease Width" },
+	["<C-Right>"] = { ":vertical resize +2<CR>", "Window Increase Width" },
+
+	-- Text manipulations
+	["<A-j>"] = { ":m .+1<CR>==", "Move Line Up" },
+	["<A-k>"] = { ":m .-2<CR>==", "Move Line Down" },
+	J = { "mzJ`z", "Fancy Line Pull" },
+	K = { vim.lsp.buf.hover, "Hover" },
+
+	-- Diagnostics
 	["["] = {
 		name = "Diagnostics",
-		n = { vim.diagnostic.goto_next, "[N]ext" },
-		o = { vim.diagnostic.open_float, "[O]pen" },
-		p = { vim.diagnostic.goto_prev, "[P]rev" },
+		j = { vim.diagnostic.goto_next, "Next" },
+		f = { vim.diagnostic.open_float, "Open [F]loat" },
+		k = { vim.diagnostic.goto_prev, "Prev" },
+		q = { vim.diagnostic.setloclist, "[Q]uickfix List" },
 	},
-}, { mode = "n" })
+}, { mode = "n", noremap = true })
 
+-- LEADER NORMAL
 require("which-key").register({
-	w = {},
+	w = { "<cmd>wa<CR>", "Save All" },
+	e = { "<cmd>NvimTreeToggle<CR>", "File Explorer" },
 }, { mode = "n", prefix = "<leader>" })
 
+-- VISUAL
 require("which-key").register({}, { mode = "v" })
