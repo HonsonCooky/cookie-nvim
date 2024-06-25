@@ -119,8 +119,7 @@ POWERSHELL TERMINAL
 if string.find(string.lower(vim.loop.os_uname().sysname), "windows") ~= nil then -- If Windows.OS
 	local powershell_options = {
 		shell = vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell",
-		shellcmdflag =
-		"-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
+		shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
 		shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait",
 		shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode",
 		shellquote = "",
@@ -286,11 +285,11 @@ null_ls.setup({
 	sources = {
 		formatting.clang_format, -- C++
 		formatting.cmake_format, -- CMake
-		formatting.csharpier,   -- C#
-		formatting.prettier,    -- HTML, JS/TS, CSS
-		formatting.stylua,      -- Lua
+		formatting.csharpier, -- C#
+		formatting.prettier, -- HTML, JS/TS, CSS
+		formatting.stylua, -- Lua
 		formatting.terraform_fmt, -- Terraform
-		formatting.yamlfmt,     -- Yaml
+		formatting.yamlfmt, -- Yaml
 	},
 	on_attach = function(client, bufnr)
 		if client.supports_method("textDocument/formatting") then
@@ -458,9 +457,10 @@ require("which-key").register({
 	-- Formatting
 	f = {
 		function()
-			local client = vim.lsp.get_client_by_id(event.data.client_id)
-			if client.supports_method("textDocument/formatting") then
+			if next(vim.lsp.buf_get_clients()) ~= nil then
 				vim.lsp.buf.format({ async = false, timeout_ms = 5000 })
+			else
+				print("No formatter available for filetype: " .. filetype)
 			end
 		end,
 		"[F]ormat",
