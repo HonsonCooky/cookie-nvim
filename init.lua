@@ -457,6 +457,7 @@ require("which-key").register({
 	-- Formatting
 	f = {
 		function()
+			local filetype = vim.api.nvim_buf_get_option(0, "filetype")
 			if next(vim.lsp.buf_get_clients()) ~= nil then
 				vim.lsp.buf.format({ async = false, timeout_ms = 5000 })
 			else
