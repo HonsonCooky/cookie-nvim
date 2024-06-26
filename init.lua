@@ -310,9 +310,21 @@ require("mason-null-ls").setup()
 NVIM TREE
 ]]
 require("nvim-tree").setup({
+	hijack_cursor = true,
+	disable_netrw = true,
 	sync_root_with_cwd = true,
+	reload_on_bufenter = true,
+	respect_buf_cwd = true,
+	select_prompts = true,
 	view = {
+		cursorline = false,
 		side = "right",
+		number = true,
+		relativenumber = true,
+		width = {
+			min = 25,
+			max = 45,
+		},
 	},
 })
 
