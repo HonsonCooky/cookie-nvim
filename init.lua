@@ -79,6 +79,7 @@ require("lazy").setup({
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 			"j-hui/fidget.nvim",
 			"folke/neodev.nvim",
+			"WillEhrendreich/Ionide-Nvim",
 		},
 	},
 	{
@@ -90,11 +91,12 @@ require("lazy").setup({
 	{
 		"hrsh7th/nvim-cmp",
 		dependencies = {
-			"L3MON4D3/LuaSnip",
+			{ "L3MON4D3/LuaSnip", build = "make install_jsregexp" },
 			"saadparwaiz1/cmp_luasnip",
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
+			"rafamadriz/friendly-snippets",
 		},
 	},
 	{
@@ -141,12 +143,69 @@ require("nvim-ts-autotag").setup()
 require("todo-comments").setup({ signs = false })
 
 --[[
+AUTO COMPLETE
+]]
+require("luasnip.loaders.from_vscode").lazy_load()
+
+vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
+
+local cmp = require("cmp")
+local luasnip = require("luasnip")
+luasnip.config.setup()
+
+cmp.setup({
+	snippet = {
+		expand = function(args)
+			luasnip.lsp_expand(args.body)
+		end,
+	},
+	mapping = cmp.mapping.preset.insert({
+		["<Tab>"] = cmp.mapping.select_next_item(),
+		["<S-Tab>"] = cmp.mapping.select_prev_item(),
+		["<CR>"] = cmp.mapping.confirm({ select = true }),
+		["<C-b>"] = cmp.mapping.scroll_docs(-4),
+		["<C-f>"] = cmp.mapping.scroll_docs(4),
+		["<C-Space>"] = cmp.mapping.complete({}),
+		["<C-l>"] = cmp.mapping(function()
+			if luasnip.expand_or_locally_jumpable() then
+				luasnip.expand_or_jump()
+			end
+		end, { "i", "s" }),
+		["<C-h>"] = cmp.mapping(function()
+			if luasnip.locally_jumpable(-1) then
+				luasnip.jump(-1)
+			end
+		end, { "i", "s" }),
+	}),
+	sources = cmp.config.sources({
+		{ name = "nvim_lsp" },
+		{ name = "luasnip" },
+		{ name = "buffer" },
+		{ name = "path" },
+	}),
+	experimental = {
+		ghost_text = {
+			hl_group = "CmpGhostText",
+		},
+	},
+})
+
+--[[
 LANGUAGE SERVER SETUP
 ]]
+require("fidget").setup({})
+require("neodev").setup({})
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
 	callback = function(event)
 		local client = vim.lsp.get_client_by_id(event.data.client_id)
+
+		if client and client.name == "fsautocomplete" then
+			vim.opt.expandtab = true
+		else
+			vim.opt.expandtab = false
+		end
+
 		if client and client.server_capabilities.documentHighlightProvider then
 			local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
 			vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
@@ -175,12 +234,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 require("mason").setup()
+
 require("mason-tool-installer").setup({
 	ensure_installed = {
 		"clangd",
 		"csharp_ls",
 		"cmake",
 		"cssls",
+		"fsautocomplete",
 		"html",
 		"jsonls",
 		"lua_ls",
@@ -192,6 +253,7 @@ require("mason-tool-installer").setup({
 		"yamlls",
 	},
 })
+
 require("mason-lspconfig").setup({
 	handlers = {
 		function(server_name)
@@ -231,47 +293,6 @@ require("nvim-treesitter.configs").setup({
 		additional_vim_regex_highlighting = { "ruby" },
 	},
 	indent = { enable = true, disable = { "ruby" } },
-})
-
---[[
-AUTO COMPLETE
-]]
-require("luasnip.loaders.from_vscode").lazy_load()
-local cmp = require("cmp")
-local luasnip = require("luasnip")
-luasnip.config.setup()
-
-cmp.setup({
-	snippet = {
-		expand = function(args)
-			luasnip.lsp_expand(args.body)
-		end,
-	},
-	completion = { completeopt = "menu,menuone,noinsert" },
-	mapping = cmp.mapping.preset.insert({
-		["<Tab>"] = cmp.mapping.select_next_item(),
-		["<S-Tab>"] = cmp.mapping.select_prev_item(),
-		["<CR>"] = cmp.mapping.confirm({ select = true }),
-		["<C-b>"] = cmp.mapping.scroll_docs(-4),
-		["<C-f>"] = cmp.mapping.scroll_docs(4),
-		["<C-Space>"] = cmp.mapping.complete({}),
-		["<C-l>"] = cmp.mapping(function()
-			if luasnip.expand_or_locally_jumpable() then
-				luasnip.expand_or_jump()
-			end
-		end, { "i", "s" }),
-		["<C-h>"] = cmp.mapping(function()
-			if luasnip.locally_jumpable(-1) then
-				luasnip.jump(-1)
-			end
-		end, { "i", "s" }),
-	}),
-	sources = {
-		{ name = "nvim_lsp" },
-		{ name = "luasnip" },
-		{ name = "buffer" },
-		{ name = "path" },
-	},
 })
 
 --[[
@@ -480,5 +501,11 @@ require("which-key").register({
 	},
 }, { mode = "n", prefix = "<leader>" })
 
--- VISUAL
-require("which-key").register({}, { mode = "v" })
+-- TERMINAL
+require("which-key").register({
+	["<C-t>"] = { "<C-\\><C-N>", "Exit Insert" },
+	["<C-h>"] = { "<C-\\><C-N><C-w>h", "Jump To Windows LEFT" },
+	["<C-j>"] = { "<C-\\><C-N><C-w>j", "Jump To Windows DOWN" },
+	["<C-k>"] = { "<C-\\><C-N><C-w>k", "Jump To Windows UP" },
+	["<C-l>"] = { "<C-\\><C-N><C-w>l", "Jump To Windows RIGHT" },
+}, { mode = "t", noremap = true })
