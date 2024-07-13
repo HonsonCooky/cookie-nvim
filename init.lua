@@ -121,7 +121,8 @@ POWERSHELL TERMINAL
 if string.find(string.lower(vim.loop.os_uname().sysname), "windows") ~= nil then -- If Windows.OS
 	local powershell_options = {
 		shell = vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell",
-		shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
+		shellcmdflag =
+		"-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
 		shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait",
 		shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode",
 		shellquote = "",
@@ -306,11 +307,11 @@ null_ls.setup({
 	sources = {
 		formatting.clang_format, -- C++
 		formatting.cmake_format, -- CMake
-		formatting.csharpier, -- C#
-		formatting.prettier, -- HTML, JS/TS, CSS
-		formatting.stylua, -- Lua
+		formatting.csharpier,   -- C#
+		formatting.prettier,    -- HTML, JS/TS, CSS
+		formatting.stylua,      -- Lua
 		formatting.terraform_fmt, -- Terraform
-		formatting.yamlfmt, -- Yaml
+		formatting.yamlfmt,     -- Yaml
 	},
 	on_attach = function(client, bufnr)
 		if client.supports_method("textDocument/formatting") then
@@ -443,6 +444,7 @@ require("which-key").register({
 		g = { telescope_builtin.grep_string, "[G]rep" },
 		h = { telescope_builtin.help_tags, "[H]elp" },
 		k = { telescope_builtin.keymaps, "[K]eymaps" },
+		l = { telescope_builtin.live_grep, "[L]ive" },
 		r = { telescope_builtin.resume, "[R]esume" },
 		s = { telescope_builtin.builtin, "[S]elect Tool" },
 
