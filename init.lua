@@ -288,7 +288,12 @@ require("lazy").setup({
 				config = true,
 			},
 		},
-		config = true,
+		config = function()
+			require("mason-conform").setup({
+				automatic_installation = true,
+				quiet_mode = true,
+			})
+		end,
 	},
 
 	--[[AUTO-COMPLETE]]
