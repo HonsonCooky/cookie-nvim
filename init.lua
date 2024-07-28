@@ -154,7 +154,6 @@ require("lazy").setup({
 				ft = "lua",
 				opts = {
 					library = {
-						-- Load luvit types when the `vim.uv` word is found
 						{ path = "luvit-meta/library", words = { "vim%.uv" } },
 					},
 				},
@@ -393,11 +392,8 @@ require("lazy").setup({
 				"vimdoc",
 			},
 			auto_install = true,
-			highlight = {
-				enable = true,
-				additional_vim_regex_highlighting = { "ruby" },
-			},
-			indent = { enable = true, disable = { "ruby" } },
+			highlight = { enable = true },
+			-- indent = { enable = true },
 		},
 		config = function(_, opts)
 			require("nvim-treesitter.install").prefer_git = true
