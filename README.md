@@ -1,73 +1,47 @@
-# CookieNvim
+# CookieNvim - Deprecated
 
-**_v4.0.0_**
+## Neovim Journey
 
-Welcome to the CookieNvim; A Personal Development Environment (PDE) Neovim configuration for HonsonCooky.
+After hearing about the amazing Neovim, I decided to get myself a License-To-Motion and register to be Blazingly-Fast.
+As I was warned, learning this new tool was incredibly difficult! I wasn't aware of just how difficult, so let me spell
+it out for everyone. You need to learn:
 
-## Configuration Overview
+- Vim Motions
+- Lua
+- Vim Defaults
+- Neovim API
+- Plugin APIs
 
-Neovim is a configurable text editor. Coming from a world of "specific" and "generic" IDEs, this is quite a mindset
-shift. Specific IDEs (like the JetBrains Suite or Visual Studio) are generally built to install everything you need out
-of the box. They're designed with a specific workflows and languages in mind, so they're able to install all the tools
-you'll need from the get go. Generic IDEs (like VSCode) are more lightweight out of the box but can be easily extended
-to support a wide array of languages. However, the catch here is that you'll need to setup any language support on your
-system first. For example, Rust must be installed on your system before the Rust extension in VSCode will work properly.
+This list consists of three different documentation styles (Neovim, Lua, GitHub), and several different philosophies for
+achieving a cohesive development environment. So, to those who intend on switching to Neovim, be ware the deep end
+you're about to dive into.
 
-Neovim on the other hand, is not an IDE at all. It can be configured with IDE tools, but it is not an IDE in itself. So,
-why use Neovim at all? For me (and that's important), I prefer keyboard centric computer interactions. Keeping my
-fingers on the home-row using a split, low-profile, low-resistance, concave keyboard with flashed firmware enabling
-layers for reduced stretching and wrist movement \*deep breath\* enables me to reduce friction between my brain and the
-tool (and plays a lot nicer with some of my unique physical disabilities). Neovim is more than an IDE for me. It's
-become my go to means for computer interactions (with the help of terminals and CLIs).
+Though learning Neovim was tough, there is a plentiful eco-system that abstracts away the requirement to DIY an IDE. My
+configuration went through several different phases (which are maintained by branches in this repo):
 
-In saying all this, it has taken me some time to truly understand how to configure my Neovim setup. Being a generic
-text-editor, I first attempted to re-create VSCode as this felt relatively natural. Extensions like `Mason` and
-`TreeSitter` allowed me to install language server extensions on the go. I could have an inbuilt terminal with
-`ToggleTerm`, and a file explorer with `Neo-Tree` or `Nvim-Tree`. So, it only made sense at the time (v1.0.0) to design
-a configuration that was as "VSCode" like as possible. I played around with some community configurations as well
-(`AstroNvim`, `LunarVim`, etc). However, building a VSCode like configuration for Neovim seems to be counter-intuitive.
-You run into more problems than solutions, and it feels like you end up with a really bloated IDE, full of features
-you're not using.
+- `v1.0.0` First implementation after playing around with community configurations like AstroNvim, NVChad, LunarVim, etc.
+- `v2.0.0` To enable easier configuration management, reordered and reduced the number of `.lua` files in the config.
+- `v3.0.0` Reduced file configuration to one `init.lua` file, with the removal of unused plugins.
+- `v4.0.0` Removed and added more plugins that v3.0.0 was missing, and LSP Update! (Removed WHICH-KEY)
 
-With this insight, v4.0.0 of this configuration will attempt to do the opposite. Rather than implementing a "generic"
-IDE, I'm going to try build a configuration that matches Visual Studio. Why Visual Studio: Where I live, most
-programming jobs are using Microsoft tool-kits. C# and TypeScript are the dominant languages in this arena, so I'm going
-to build a configuration that allows me to work in this environment. This is also why I've built my configurations for
-Windows OS support; Where necessary keybindings will avoid `Windows Terminal` clashes and PowerShell will be set as the
-inline terminal interface.
+During my time using Neovim (only about two years) I was able to build personal and professional projects. The reduced
+IDE setup meant that I was introduced to a wealth of CLI commands that I otherwise wouldn't have used. `dotnet`, `grep`,
+and mastering PowerShell all came as a consequence of my decision to use Neovim.
 
-## Supported Kits
+## Back to VSCode
 
-Visual Studio is the inspiration for this configuration. My configuration enables SDK support (Highlighting,
-Autocompletion, Formatting, and Debugging where applicable) for the following languages and frameworks.
+The nail in the coffin for me was my attempted commitment to the `.NET` ecosystem. The job market where I live is pretty
+reliant on Microsoft technologies. It wasn't particularly easy to get C# (with CSharpier) and TypeScript (with prettier)
+up and running. However, after learning more about how the LSP ecosystem works in Neovim, I did manage to get there in
+the end.
 
-### Visual Studio
+Unfortunately, Blazor development is not yet supported by any of the major Neovim LSP providers - and after attempting
+to get it running with other third party plugins, I felt tired. In truth, I've spent more time attempting to learn
+Neovim over the past two years, than actually engineering software solutions. I'm tired of having to reinvent myself and
+my config to get that frictionless setup - allowing me to focus on the programming ecosystem that I'm attempting to work
+in.
 
-- .NET
-
-  - C#
-  - F#
-  - ASP.NET
-  - Razor / Blazor
-
-- Microsoft C++
-
-  - C++
-
-- NodeJS
-
-  - HTML/CSS
-  - TypeScript
-
-- Others
-  - Python
-  - SQL
-  - PowerShell
-  - Markdown
-  - JSON
-
-### Extras
-
-- Bash: For Linux Support.
-- Lua: Neovim Configuration.
-- Terraform: A commonly used IaC language.
+So why did I leave VSCode in the first place? Workspace Clutter and Keyboard Centric Navigation. For me, having an
+overly crowded computer screen and moving my hand from the home row to the mouse, generates a LOT of extra friction. So
+the idea of using an IDE with a simplistic UI designed for keyboard only interactions seemed like a dream. Whilst this
+dream was almost perfect, it's one short-coming was the lack of better language support.
